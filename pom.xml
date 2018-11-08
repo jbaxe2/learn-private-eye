@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <name>Learn PrivateEye</name>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>wsu.blackboard</groupId>
+  <artifactId>learn-private-eye</artifactId>
+  <packaging>war</packaging>
+  <version>0.1.1</version>
+
+  <repositories>
+    <repository>
+      <id>blackboard.platform</id>
+      <name>blackboard.platform</name>
+      <url>https://maven.blackboard.com/content/repositories/releases/</url>
+    </repository>
+  </repositories>
+
+  <dependencies>
+    <dependency>
+      <groupId>blackboard.platform</groupId>
+      <artifactId>bb-platform</artifactId>
+      <version>3400.0.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>blackboard.platform</groupId>
+      <artifactId>bb-taglibs</artifactId>
+      <version>3400.0.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>blackboard.platform</groupId>
+      <artifactId>bb-cms-admin</artifactId>
+      <version>3400.0.0</version>
+    </dependency>
+  </dependencies>
+</project>
