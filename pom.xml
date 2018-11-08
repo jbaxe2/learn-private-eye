@@ -8,7 +8,7 @@
   <groupId>wsu.blackboard</groupId>
   <artifactId>learn-private-eye</artifactId>
   <packaging>war</packaging>
-  <version>0.1.1</version>
+  <version>0.0.2</version>
 
   <repositories>
     <repository>
@@ -27,13 +27,19 @@
 
     <dependency>
       <groupId>blackboard.platform</groupId>
+      <artifactId>bb-cms-admin</artifactId>
+      <version>3400.0.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>blackboard.platform</groupId>
       <artifactId>bb-taglibs</artifactId>
       <version>3400.0.0</version>
     </dependency>
 
     <dependency>
       <groupId>blackboard.platform</groupId>
-      <artifactId>bb-cms-admin</artifactId>
+      <artifactId>bb-spring-webapi</artifactId>
       <version>3400.0.0</version>
     </dependency>
   </dependencies>
