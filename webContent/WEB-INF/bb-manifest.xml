@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<manifest>
+  <!-- core extension information -->
+  <plugin>
+    <name value="Learn PrivateEye" />
+    <handle value="learn-private-eye" />
+    <description value="Learn PrivateEye is a simple building block to view tracking information of Learn users, similar to what was available in the Vista days." />
+    <version value="0.0.3" />
+    <requires>
+      <bbversion value="9.1" />
+    </requires>
+
+    <vendor>
+      <id value="wsu"/>
+      <name value="Westfield State University" />
+      <url value="http://www.westfield.ma.edu/" />
+      <description value="WSU is a public state university located in Westfield, MA" />
+    </vendor>
+
+    <!--  These two JSPs are displayed when the "remove" and "properties" buttons -->
+    <!--  are pressed on the Building Blocks administration page.         -->
+    <!--
+      <http-actions>
+        <config value="admin/configure.jsp"/>
+        <remove value="admin/remove.jsp"/>
+      </http-actions>
+     -->
+
+    <application-defs>
+      <application handle="learn-private-eye" type="course" use-ssl="true"
+             name="Learn PrivateEye" can-allow-guest="false" is-course-tool="false">
+        <description lang="en_US">The Learn PrivateEye tool is a simple user tracking report building block.</description>
+        <links>
+          <link>
+            <type value="course_tool" />
+            <name value="Learn PrivateEye" />
+            <url value="index.jsp?startIndex=0" />
+            <description value="Learn PrivateEye is a simple user tracking report tool." />
+          </link>
+        </links>
+      </application>
+    </application-defs>
+
+    <!-- Portal Module Definitions -->
+    <module-defs>
+    </module-defs>
+
+    <!--  Custom Content Types -->
+    <content-handlers>
+    </content-handlers>
+
+    <!-- code permissions required for proper operation -->
+    <permissions>
+      <permission type="runtime" name="db.connection.*" />
+      <permission type="socket" name="*" actions="connect,resolve" />
+      <permission type="attribute" name="user.personalinfo" actions="get" />
+      <permission type="attribute" name="user.authinfo" actions="get" />
+      <permission type="persist" name="user" actions="read" />
+      <permission type="persist" name="userrole" actions="read" />
+      <permission type="persist" name="coursemembership" actions="read" />
+      <permission type="persist" name="enrollment" actions="read" />
+      <permission type="attribute" name="enrollment.rowstatus" actions="get" />
+    </permissions>
+
+  </plugin>
+
+</manifest>
