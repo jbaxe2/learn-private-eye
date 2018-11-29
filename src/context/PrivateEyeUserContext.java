@@ -1,12 +1,12 @@
 package context;
 
+import com.sun.istack.internal.NotNull;
+
 import blackboard.data.user.User;
 
 import blackboard.persist.user.UserDbLoader;
 import blackboard.persist.Id;
 import blackboard.persist.PersistenceException;
-
-import com.sun.istack.internal.NotNull;
 
 import user.SimpleUser;
 

@@ -1,6 +1,10 @@
 # Learn PrivateEye
 **(learn-private-eye)**
 
+0.0.5
+- Minor refactoring.
+- Start of creating query classes for retrieving tracking information.
+
 0.0.4
 - Developed more contextual aspects.
 - Minor refactoring to provide better consistency across code base.

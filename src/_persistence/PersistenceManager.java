@@ -49,7 +49,7 @@ public class PersistenceManager {
       loader = persistenceManager.getLoader (EnrollmentDbLoader.TYPE);
     } else {
       throw new PersistenceException (
-        "The loader type (" + type +") is not supported."
+        "The loader type (" + type + ") is not supported."
       );
     }
 

@@ -1,5 +1,8 @@
 package context;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import blackboard.data.course.Course;
 import blackboard.data.course.CourseMembership;
 
@@ -11,9 +14,6 @@ import blackboard.persist.PersistenceException;
 import course.SimpleCourse;
 import membership.SimpleMembership;
 import user.SimpleUser;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * The [PrivateEyeCourseContext] class...

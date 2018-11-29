@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 
 <manifest>
-  <!-- core extension information -->
   <plugin>
     <name value="Learn PrivateEye" />
     <handle value="learn-private-eye" />
-    <description value="Learn PrivateEye is a simple building block to view tracking information of Learn users, similar to what was available in the Vista days." />
-    <version value="0.0.4" />
+    <description
+        value="Learn PrivateEye is a simple building block to view tracking information of Learn users, similar to what was available in the Vista days." />
+    <version value="0.0.5" />
+
     <requires>
       <bbversion value="9.1" />
     </requires>
@@ -18,19 +19,13 @@
       <description value="WSU is a public state university located in Westfield, MA" />
     </vendor>
 
-    <!--  These two JSPs are displayed when the "remove" and "properties" buttons -->
-    <!--  are pressed on the Building Blocks administration page.         -->
-    <!--
-      <http-actions>
-        <config value="admin/configure.jsp"/>
-        <remove value="admin/remove.jsp"/>
-      </http-actions>
-     -->
-
     <application-defs>
       <application handle="learn-private-eye" type="course" use-ssl="true"
-             name="Learn PrivateEye" can-allow-guest="false" is-course-tool="false">
-        <description lang="en_US">The Learn PrivateEye tool is a simple user tracking report building block.</description>
+          name="Learn PrivateEye" can-allow-guest="false" is-course-tool="false">
+        <description lang="en_US">
+          The Learn PrivateEye tool is a simple user tracking report building block.
+        </description>
+
         <links>
           <link>
             <type value="course_tool" />
@@ -46,11 +41,11 @@
     <module-defs>
     </module-defs>
 
-    <!--  Custom Content Types -->
+    <!-- Custom Content Types -->
     <content-handlers>
     </content-handlers>
 
-    <!-- code permissions required for proper operation -->
+    <!-- Code permissions required for proper operation -->
     <permissions>
       <permission type="runtime" name="db.connection.*" />
       <permission type="socket" name="*" actions="connect,resolve" />

@@ -1,11 +1,11 @@
 package session;
 
+import java.util.List;
+
 import _error.SessionException;
 
 import activity.ActivityAccumulator;
 import activity.ActivityEvent;
-
-import java.util.List;
 
 /**
  * The [SessionAccumulator] class...
