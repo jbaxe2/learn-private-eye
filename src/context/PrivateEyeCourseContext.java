@@ -2,11 +2,12 @@ package context;
 
 import blackboard.data.course.Course;
 import blackboard.data.course.CourseMembership;
+
+import blackboard.persist.course.CourseDbLoader;
+import blackboard.persist.course.CourseMembershipDbLoader;
 import blackboard.persist.Id;
 import blackboard.persist.PersistenceException;
-import blackboard.persist.course.CourseDbLoader;
 
-import blackboard.persist.course.CourseMembershipDbLoader;
 import course.SimpleCourse;
 import membership.SimpleMembership;
 import user.SimpleUser;
@@ -17,7 +18,7 @@ import java.util.List;
 /**
  * The [PrivateEyeCourseContext] class...
  */
-public class PrivateEyeCourseContext {
+public class PrivateEyeCourseContext implements PrivateEyeContext {
   private final Id courseId;
 
   private SimpleCourse course;
@@ -56,14 +57,18 @@ public class PrivateEyeCourseContext {
 
     for (CourseMembership membership : memberships) {
       SimpleMembership simpleMembership = new SimpleMembership (
-          membership.getId().getExternalString(), membership.getCourseId().getExternalString(),
-          membership.getUserId().getExternalString(), membership.getRoleAsString(),
-          membership.getIsAvailable(), membership.getEnrollmentDate().getTime(),
-          membership.getLastAccessDate().getTime()
+        membership.getId().getExternalString(), membership.getCourseId().getExternalString(),
+        membership.getUserId().getExternalString(), membership.getRoleAsString(),
+        membership.getIsAvailable(), membership.getEnrollmentDate().getTime(),
+        membership.getLastAccessDate().getTime()
       );
 
       this.memberships.add (simpleMembership);
     }
+  }
+
+  public Id getContextId() {
+    return courseId;
   }
 
   public SimpleCourse getCourse() {

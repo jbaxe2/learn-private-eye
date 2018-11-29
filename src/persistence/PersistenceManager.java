@@ -3,6 +3,7 @@ package persistence;
 import java.sql.Connection;
 
 import blackboard.admin.persist.course.impl.EnrollmentDbLoader;
+
 import blackboard.db.BbDatabase;
 import blackboard.db.ConnectionManager;
 import blackboard.db.ConnectionNotAvailableException;
@@ -64,6 +65,10 @@ public class PersistenceManager {
     }
   }
 
+  public Connection getConnection() {
+    return connection;
+  }
+
   /**
    * The [_establishDatabase] method...
    */
@@ -77,9 +82,5 @@ public class PersistenceManager {
    */
   private void _establishLoaderManager() {
     persistenceManager = PersistenceServiceFactory.getInstance().getDbPersistenceManager();
-  }
-
-  public Connection getConnection() {
-    return connection;
   }
 }
