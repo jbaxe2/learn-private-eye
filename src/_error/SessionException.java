@@ -1,4 +1,4 @@
-package error;
+package _error;
 
 /**
  * The [SessionException] class...

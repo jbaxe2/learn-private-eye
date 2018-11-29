@@ -1,9 +1,9 @@
 package session;
 
+import _error.SessionException;
+
 import activity.ActivityAccumulator;
 import activity.ActivityEvent;
-
-import error.SessionException;
 
 import java.util.List;
 
