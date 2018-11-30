@@ -1,15 +1,20 @@
 package session;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+
+import blackboard.data.course.Course;
+import blackboard.data.user.User;
+import blackboard.persist.Id;
+
+import _error.SessionException;
+import activity.ActivityEvent;
 
 /**
  * The [SingleUserCourseSessionsCollection] class...
  */
 public class SingleUserCourseSessionsCollection {
-  private Map<String, List<SingleUserCourseSession>> courseSessions;
+  private Map<String, SingleUserCourseSession> courseSessions;
 
   private static SingleUserCourseSessionsCollection _instance;
 
@@ -28,24 +33,33 @@ public class SingleUserCourseSessionsCollection {
    * The [SingleUserCourseSessionsCollection] constructor...
    */
   private SingleUserCourseSessionsCollection() {
-    courseSessions = new HashMap<String, List<SingleUserCourseSession>>();
+    courseSessions = new HashMap<String, SingleUserCourseSession>();
   }
 
   /**
-   * The [pushSingleUserCourseSession] method...
+   * The [pushSessionEventToCollection] method...
    */
-  public void pushSingleUserCourseSession (String sessionId, SingleUserCourseSession sessionEvent) {
-    if (courseSessions.containsKey (sessionId)) {
-      courseSessions.get (sessionId).add (sessionEvent);
-    } else {
-      List<SingleUserCourseSession> sessionList = new ArrayList<SingleUserCourseSession>();
-      sessionList.add (sessionEvent);
+  public void pushSessionEventToCollection (ActivityEvent sessionEvent) throws SessionException {
+    String sessionId = sessionEvent.getSessionId();
 
-      courseSessions.put (sessionId, sessionList);
+    if (!courseSessions.containsKey (sessionId)) {
+      Id courseId = Id.toId (Course.DATA_TYPE, sessionEvent.getCoursePk1());
+      Id userId = Id.toId (User.DATA_TYPE, sessionEvent.getUserPk1());
+
+      courseSessions.put (sessionId, new SingleUserCourseSession (courseId, userId, sessionId));
     }
+
+    courseSessions.get (sessionId).addSessionActivity (sessionEvent);
   }
 
-  public Map<String, List<SingleUserCourseSession>> getCourseSessions() {
-    return new HashMap<String, List<SingleUserCourseSession>>(courseSessions);
+  /**
+   * The [clearCourseSessions] method...
+   */
+  public void clearCourseSessions() {
+    courseSessions.clear();
+  }
+
+  public Map<String, SingleUserCourseSession> getCourseSessions() {
+    return new HashMap<String, SingleUserCourseSession>(courseSessions);
   }
 }

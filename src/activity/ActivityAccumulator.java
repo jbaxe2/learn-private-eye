@@ -20,7 +20,9 @@ public class ActivityAccumulator {
    * The [addActivityEvent] method...
    */
   public void addActivityEvent (ActivityEvent event) {
-    activityEvents.add (event);
+    if (!activityEvents.contains (event)) {
+      activityEvents.add (event);
+    }
   }
 
   public List<ActivityEvent> getActivityEvents() {

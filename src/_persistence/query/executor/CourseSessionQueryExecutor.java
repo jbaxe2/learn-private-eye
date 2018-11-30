@@ -4,12 +4,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import blackboard.data.user.User;
+import java.util.ArrayList;
+import java.util.List;
+
 import blackboard.persist.Id;
 
 import _error.SessionException;
 import activity.ActivityEvent;
-import session.SingleUserCourseSession;
+import session.SimpleCourseUserSessionCount;
 import session.SingleUserCourseSessionsCollection;
 
 /**
@@ -20,24 +22,42 @@ public class CourseSessionQueryExecutor implements QueryExecutor {
 
   private final PreparedStatement preparedStatement;
 
-  private SingleUserCourseSessionsCollection sessionsCollection;
-
   /**
    * The [CourseSessionQueryExecutor] constructor...
    */
   CourseSessionQueryExecutor (Id courseId, PreparedStatement preparedStatement) {
     this.courseId = courseId;
     this.preparedStatement = preparedStatement;
+  }
 
-    sessionsCollection = SingleUserCourseSessionsCollection.getInstance();
+  /**
+   * The [retrieveNumberSessionsAllUsers] method...
+   */
+  public List<SimpleCourseUserSessionCount> retrieveNumberSessionsAllUsers() throws SQLException {
+    ResultSet countResult = preparedStatement.executeQuery();
+    List<SimpleCourseUserSessionCount> sessionCountList = new ArrayList<SimpleCourseUserSessionCount>();
+
+    while (countResult.next()) {
+      SimpleCourseUserSessionCount sessionCount = new SimpleCourseUserSessionCount (
+        countResult.getString ("course_pk1"),
+        countResult.getString ("user_pk1"),
+        countResult.getInt ("session_count")
+      );
+
+      sessionCountList.add (sessionCount);
+    }
+
+    return sessionCountList;
   }
 
   /**
    * The [retrieveSessionsForUser] method...
    */
-  public void retrieveSessionsForUser() throws SQLException, SessionException {
+  public SingleUserCourseSessionsCollection retrieveSessionsForUser() throws SQLException, SessionException {
     ResultSet sessionsResult = preparedStatement.executeQuery();
-    SingleUserCourseSession courseSession = null;
+
+    SingleUserCourseSessionsCollection sessionsCollection =
+      SingleUserCourseSessionsCollection.getInstance();
 
     while (sessionsResult.next()) {
       ActivityEvent sessionEvent = new ActivityEvent (
@@ -54,15 +74,9 @@ public class CourseSessionQueryExecutor implements QueryExecutor {
         sessionsResult.getString ("session_id")
       );
 
-      Id userId = Id.toId (User.DATA_TYPE, sessionEvent.getUserPk1());
-
-      if (null == courseSession) {
-        courseSession = new SingleUserCourseSession (
-          courseId, userId, sessionEvent.getSessionId ()
-        );
-      }
-
-      courseSession.addSessionActivity (sessionEvent);
+      sessionsCollection.pushSessionEventToCollection (sessionEvent);
     }
+
+    return sessionsCollection;
   }
 }
