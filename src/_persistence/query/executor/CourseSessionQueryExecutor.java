@@ -4,32 +4,40 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import blackboard.persist.DataType;
+import blackboard.data.user.User;
 import blackboard.persist.Id;
-import blackboard.persist.PersistenceException;
-import blackboard.persist.course.CourseDbLoader;
 
+import _error.SessionException;
 import activity.ActivityEvent;
-import blackboard.persist.user.UserDbLoader;
+import session.SingleUserCourseSession;
+import session.SingleUserCourseSessionsCollection;
 
 /**
  * The [CourseSessionQueryExecutor] class...
  */
 public class CourseSessionQueryExecutor implements QueryExecutor {
+  private final Id courseId;
+
   private final PreparedStatement preparedStatement;
+
+  private SingleUserCourseSessionsCollection sessionsCollection;
 
   /**
    * The [CourseSessionQueryExecutor] constructor...
    */
-  CourseSessionQueryExecutor (PreparedStatement preparedStatement) {
+  CourseSessionQueryExecutor (Id courseId, PreparedStatement preparedStatement) {
+    this.courseId = courseId;
     this.preparedStatement = preparedStatement;
+
+    sessionsCollection = SingleUserCourseSessionsCollection.getInstance();
   }
 
   /**
    * The [retrieveSessionsForUser] method...
    */
-  public void retrieveSessionsForUser() throws SQLException, PersistenceException {
+  public void retrieveSessionsForUser() throws SQLException, SessionException {
     ResultSet sessionsResult = preparedStatement.executeQuery();
+    SingleUserCourseSession courseSession = null;
 
     while (sessionsResult.next()) {
       ActivityEvent sessionEvent = new ActivityEvent (
@@ -46,15 +54,15 @@ public class CourseSessionQueryExecutor implements QueryExecutor {
         sessionsResult.getString ("session_id")
       );
 
-      Id courseId = Id.generateId (
-        new DataType (CourseDbLoader.TYPE), sessionEvent.getCoursePk1()
-      );
+      Id userId = Id.toId (User.DATA_TYPE, sessionEvent.getUserPk1());
 
-      Id userId = Id.generateId (
-        new DataType (UserDbLoader.TYPE), sessionEvent.getUserPk1()
-      );
+      if (null == courseSession) {
+        courseSession = new SingleUserCourseSession (
+          courseId, userId, sessionEvent.getSessionId ()
+        );
+      }
 
-
+      courseSession.addSessionActivity (sessionEvent);
     }
   }
 }

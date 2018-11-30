@@ -9,12 +9,25 @@ import java.util.Map;
  * The [SingleUserCourseSessionsCollection] class...
  */
 public class SingleUserCourseSessionsCollection {
-  Map<String, List<SingleUserCourseSession>> courseSessions;
+  private Map<String, List<SingleUserCourseSession>> courseSessions;
+
+  private static SingleUserCourseSessionsCollection _instance;
+
+  /**
+   * The [getInstance] static method...
+   */
+  public static SingleUserCourseSessionsCollection getInstance() {
+    if (null == _instance) {
+      _instance = new SingleUserCourseSessionsCollection();
+    }
+
+    return _instance;
+  }
 
   /**
    * The [SingleUserCourseSessionsCollection] constructor...
    */
-  public SingleUserCourseSessionsCollection() {
+  private SingleUserCourseSessionsCollection() {
     courseSessions = new HashMap<String, List<SingleUserCourseSession>>();
   }
 
@@ -25,10 +38,10 @@ public class SingleUserCourseSessionsCollection {
     if (courseSessions.containsKey (sessionId)) {
       courseSessions.get (sessionId).add (sessionEvent);
     } else {
-      List sessionList = new ArrayList<SingleUserCourseSession>();
+      List<SingleUserCourseSession> sessionList = new ArrayList<SingleUserCourseSession>();
       sessionList.add (sessionEvent);
 
-      courseSessions.putIfAbsent (sessionId, sessionList);
+      courseSessions.put (sessionId, sessionList);
     }
   }
 

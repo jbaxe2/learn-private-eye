@@ -2,6 +2,9 @@ package session;
 
 import blackboard.persist.Id;
 
+import _error.SessionException;
+import activity.ActivityEvent;
+
 /**
  * The [SingleUserCourseSession] class...
  */
@@ -23,5 +26,12 @@ public class SingleUserCourseSession {
     this.sessionId = sessionId;
 
     sessionAccumulator = new SessionAccumulator (this.sessionId);
+  }
+
+  /**
+   * The [addSessionActivity] method...
+   */
+  public void addSessionActivity (ActivityEvent sessionActivity) throws SessionException {
+    sessionAccumulator.addSessionActivity (sessionActivity);
   }
 }
