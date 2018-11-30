@@ -6,7 +6,7 @@
     <handle value="learn-private-eye" />
     <description
         value="Learn PrivateEye is a simple building block to view tracking information of Learn users, similar to what was available in the Vista days." />
-    <version value="0.0.5" />
+    <version value="0.0.6" />
 
     <requires>
       <bbversion value="9.1" />
