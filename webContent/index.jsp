@@ -16,6 +16,7 @@
 <bbNG:learningSystemPage title="Learn PrivateEye" authentication="Y" entitlement="course.control_panel.VIEW">
 <%
   Id courseId = PlugInUtil.getCourseId();
+
   PrivateEyeContext context = new PrivateEyeCourseContext (courseId);
   PersistenceManager persistenceManager = null;
 

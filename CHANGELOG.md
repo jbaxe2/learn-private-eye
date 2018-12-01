@@ -1,6 +1,9 @@
 # Learn PrivateEye
 **(learn-private-eye)**
 
+0.0.7
+- Renamed SingleCourseUserSession and SingCourseUserSessionsCollection.
+
 0.0.6
 - Start of fleshing out index.jsp with course context and persistence manager
 instances.

@@ -11,29 +11,29 @@ import _error.SessionException;
 import activity.ActivityEvent;
 
 /**
- * The [SingleUserCourseSessionsCollection] class...
+ * The [SingleCourseUserSessionsCollection] class...
  */
-public class SingleUserCourseSessionsCollection {
-  private Map<String, SingleUserCourseSession> courseSessions;
+public class SingleCourseUserSessionsCollection {
+  private Map<String, SingleCourseUserSession> courseSessions;
 
-  private static SingleUserCourseSessionsCollection _instance;
+  private static SingleCourseUserSessionsCollection _instance;
 
   /**
    * The [getInstance] static method...
    */
-  public static SingleUserCourseSessionsCollection getInstance() {
+  public static SingleCourseUserSessionsCollection getInstance() {
     if (null == _instance) {
-      _instance = new SingleUserCourseSessionsCollection();
+      _instance = new SingleCourseUserSessionsCollection ();
     }
 
     return _instance;
   }
 
   /**
-   * The [SingleUserCourseSessionsCollection] constructor...
+   * The [SingleCourseUserSessionsCollection] constructor...
    */
-  private SingleUserCourseSessionsCollection() {
-    courseSessions = new HashMap<String, SingleUserCourseSession>();
+  private SingleCourseUserSessionsCollection () {
+    courseSessions = new HashMap<String, SingleCourseUserSession>();
   }
 
   /**
@@ -46,7 +46,7 @@ public class SingleUserCourseSessionsCollection {
       Id courseId = Id.toId (Course.DATA_TYPE, sessionEvent.getCoursePk1());
       Id userId = Id.toId (User.DATA_TYPE, sessionEvent.getUserPk1());
 
-      courseSessions.put (sessionId, new SingleUserCourseSession (courseId, userId, sessionId));
+      courseSessions.put (sessionId, new SingleCourseUserSession (courseId, userId, sessionId));
     }
 
     courseSessions.get (sessionId).addSessionActivity (sessionEvent);
@@ -59,7 +59,7 @@ public class SingleUserCourseSessionsCollection {
     courseSessions.clear();
   }
 
-  public Map<String, SingleUserCourseSession> getCourseSessions() {
-    return new HashMap<String, SingleUserCourseSession>(courseSessions);
+  public Map<String, SingleCourseUserSession> getCourseSessions() {
+    return new HashMap<String, SingleCourseUserSession>(courseSessions);
   }
 }

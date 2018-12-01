@@ -6,9 +6,9 @@ import _error.SessionException;
 import activity.ActivityEvent;
 
 /**
- * The [SingleUserCourseSession] class...
+ * The [SingleCourseUserSession] class...
  */
-public class SingleUserCourseSession {
+public class SingleCourseUserSession {
   private final Id courseId;
 
   private final Id userId;
@@ -18,9 +18,9 @@ public class SingleUserCourseSession {
   private SessionAccumulator sessionAccumulator;
 
   /**
-   * The [SingleUserCourseSession] constructor...
+   * The [SingleCourseUserSession] constructor...
    */
-  public SingleUserCourseSession (Id courseId, Id userId, String sessionId) {
+  public SingleCourseUserSession (Id courseId, Id userId, String sessionId) {
     this.courseId = courseId;
     this.userId = userId;
     this.sessionId = sessionId;
