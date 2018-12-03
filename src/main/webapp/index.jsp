@@ -25,10 +25,6 @@
   } catch (ConnectionNotAvailableException e) {
     %><p>Error with Learn PrivateEye:<br><%= e.getMessage() %></p><%
   }
-
-  if (null != persistenceManager) {
-    persistenceManager.closeConnection();
-  }
 %>
 
   <bbNG:pageHeader>
