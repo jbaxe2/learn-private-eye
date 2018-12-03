@@ -11,8 +11,8 @@ import blackboard.persist.Id;
 
 import _error.SessionException;
 import activity.ActivityEvent;
+import session.CourseUserSessionsCollection;
 import session.SimpleCourseUserSessionCount;
-import session.SingleCourseUserSessionsCollection;
 
 /**
  * The [CourseSessionQueryExecutor] class...
@@ -53,11 +53,11 @@ public class CourseSessionQueryExecutor implements QueryExecutor {
   /**
    * The [retrieveSessionsForUser] method...
    */
-  public SingleCourseUserSessionsCollection retrieveSessionsForUser() throws SQLException, SessionException {
+  public CourseUserSessionsCollection retrieveSessionsForUser() throws SQLException, SessionException {
     ResultSet sessionsResult = preparedStatement.executeQuery();
 
-    SingleCourseUserSessionsCollection sessionsCollection =
-      SingleCourseUserSessionsCollection.getInstance();
+    CourseUserSessionsCollection sessionsCollection =
+      CourseUserSessionsCollection.getInstance();
 
     while (sessionsResult.next()) {
       ActivityEvent sessionEvent = new ActivityEvent (

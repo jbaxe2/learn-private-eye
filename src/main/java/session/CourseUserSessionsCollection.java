@@ -11,42 +11,47 @@ import _error.SessionException;
 import activity.ActivityEvent;
 
 /**
- * The [SingleCourseUserSessionsCollection] class...
+ * The [CourseUserSessionsCollection] class...
  */
-public class SingleCourseUserSessionsCollection {
+public class CourseUserSessionsCollection {
   private Map<String, SingleCourseUserSession> courseSessions;
 
-  private static SingleCourseUserSessionsCollection _instance;
+  private static CourseUserSessionsCollection _instance;
 
   /**
    * The [getInstance] static method...
    */
-  public static SingleCourseUserSessionsCollection getInstance() {
+  public static CourseUserSessionsCollection getInstance() {
     if (null == _instance) {
-      _instance = new SingleCourseUserSessionsCollection ();
+      _instance = new CourseUserSessionsCollection ();
     }
 
     return _instance;
   }
 
   /**
-   * The [SingleCourseUserSessionsCollection] constructor...
+   * The [CourseUserSessionsCollection] constructor...
    */
-  private SingleCourseUserSessionsCollection () {
+  private CourseUserSessionsCollection () {
     courseSessions = new HashMap<String, SingleCourseUserSession>();
   }
 
   /**
    * The [pushSessionEventToCollection] method...
    */
-  public void pushSessionEventToCollection (ActivityEvent sessionEvent) throws SessionException {
+  public void pushSessionEventToCollection (
+    ActivityEvent sessionEvent
+  ) throws SessionException {
     String sessionId = sessionEvent.getSessionId();
 
     if (!courseSessions.containsKey (sessionId)) {
       Id courseId = Id.toId (Course.DATA_TYPE, sessionEvent.getCoursePk1());
       Id userId = Id.toId (User.DATA_TYPE, sessionEvent.getUserPk1());
 
-      courseSessions.put (sessionId, new SingleCourseUserSession (courseId, userId, sessionId));
+      courseSessions.put (
+        sessionId,
+        new SingleCourseUserSession (courseId, userId, sessionId)
+      );
     }
 
     courseSessions.get (sessionId).addSessionActivity (sessionEvent);

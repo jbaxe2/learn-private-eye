@@ -1,7 +1,5 @@
 package context;
 
-import com.sun.istack.internal.NotNull;
-
 import blackboard.data.user.User;
 
 import blackboard.persist.user.UserDbLoader;
@@ -67,7 +65,7 @@ public class PrivateEyeUserContext implements PrivateEyeContext {
   /**
    * The [_createContextUser] method...
    */
-  private void _createContextUser (@NotNull User bbUser) {
+  private void _createContextUser (User bbUser) {
     user = new SimpleUser (
       bbUser.getId().getExternalString(), bbUser.getUserName(), bbUser.getBatchUid(),
       bbUser.getStudentId(), bbUser.getSystemRoleIdentifier(), bbUser.getGivenName(),

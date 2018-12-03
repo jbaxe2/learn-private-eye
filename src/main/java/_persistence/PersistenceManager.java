@@ -23,14 +23,27 @@ import blackboard.platform.persistence.PersistenceServiceFactory;
 public class PersistenceManager {
   private ConnectionManager connectionManager;
 
-  private BbPersistenceManager persistenceManager;
+  private BbPersistenceManager bbPersistenceManager;
 
   private Connection connection;
+
+  private static PersistenceManager _instance;
+
+  /**
+   * The [getInstance] static method...
+   */
+  public static PersistenceManager getInstance() throws ConnectionNotAvailableException {
+    if (null == _instance) {
+      _instance = new PersistenceManager();
+    }
+
+    return _instance;
+  }
 
   /**
    * The [PersistenceManager] constructor...
    */
-  public PersistenceManager() throws ConnectionNotAvailableException {
+  private PersistenceManager() throws ConnectionNotAvailableException {
     _establishDatabase();
     _establishLoaderManager();
   }
@@ -42,11 +55,11 @@ public class PersistenceManager {
     Loader loader = null;
 
     if (type.equals (CourseDbLoader.TYPE)) {
-      loader = persistenceManager.getLoader (CourseDbLoader.TYPE);
+      loader = bbPersistenceManager.getLoader (CourseDbLoader.TYPE);
     } else if (type.equals (UserDbLoader.TYPE)) {
-      loader = persistenceManager.getLoader (UserDbLoader.TYPE);
+      loader = bbPersistenceManager.getLoader (UserDbLoader.TYPE);
     } else if (type.equals (CourseMembershipDbLoader.TYPE)) {
-      loader = persistenceManager.getLoader (EnrollmentDbLoader.TYPE);
+      loader = bbPersistenceManager.getLoader (EnrollmentDbLoader.TYPE);
     } else {
       throw new PersistenceException (
         "The loader type (" + type + ") is not supported."
@@ -81,6 +94,7 @@ public class PersistenceManager {
    * The [_establishLoaderManager] method...
    */
   private void _establishLoaderManager() {
-    persistenceManager = PersistenceServiceFactory.getInstance().getDbPersistenceManager();
+    bbPersistenceManager =
+      PersistenceServiceFactory.getInstance().getDbPersistenceManager();
   }
 }

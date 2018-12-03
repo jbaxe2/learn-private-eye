@@ -21,7 +21,7 @@
   PersistenceManager persistenceManager = null;
 
   try {
-    persistenceManager = new PersistenceManager();
+    persistenceManager = PersistenceManager.getInstance();
   } catch (ConnectionNotAvailableException e) {
     %><p>Error with Learn PrivateEye:<br><%= e.getMessage() %></p><%
   }
