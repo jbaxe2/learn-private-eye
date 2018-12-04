@@ -1,5 +1,7 @@
 package course;
 
+import blackboard.data.course.Course;
+
 /**
  * The [SimpleCourse] class...
  */
@@ -25,6 +27,17 @@ public class SimpleCourse {
     this.batchUid = batchUid;
     this.name = name;
     this.availableInd = availableInd;
+  }
+
+  /**
+   * The [SimpleCourse] constructor...
+   */
+  public SimpleCourse (Course course) {
+    this.pk1 = course.getId().getExternalString();
+    this.courseId = course.getCourseId();
+    this.batchUid = course.getBatchUid();
+    this.name = course.getTitle();
+    this.availableInd = course.getIsAvailable();
   }
 
   public String getPk1() {

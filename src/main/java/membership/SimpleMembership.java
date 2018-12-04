@@ -1,5 +1,7 @@
 package membership;
 
+import blackboard.data.course.CourseMembership;
+
 import java.util.Date;
 
 /**
@@ -33,6 +35,19 @@ public class SimpleMembership {
     this.availableInd = availableInd;
     this.enrollmentDate = enrollmentDate;
     this.lastAccess = lastAccess;
+  }
+
+  /**
+   * The [SimpleMembership] constructor...
+   */
+  public SimpleMembership (CourseMembership membership) {
+    this.pk1 = membership.getId().getExternalString();
+    this.coursePk1 = membership.getCourseId().getExternalString();
+    this.userPk1 = membership.getUserId().getExternalString();
+    this.role = membership.getRoleAsString();
+    this.availableInd = membership.getIsAvailable();
+    this.enrollmentDate = membership.getEnrollmentDate().getTime();
+    this.lastAccess = membership.getLastAccessDate().getTime();
   }
 
   public String getPk1() {

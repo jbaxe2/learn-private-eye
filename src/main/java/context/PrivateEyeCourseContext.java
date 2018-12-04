@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import blackboard.data.course.Course;
 import blackboard.data.course.CourseMembership;
 import blackboard.data.user.User;
 
@@ -44,12 +43,7 @@ public class PrivateEyeCourseContext implements PrivateEyeContext {
    * The [loadCourse] method...
    */
   public void loadCourse (CourseDbLoader loader) throws PersistenceException {
-    Course bbCourse = loader.loadById (courseId);
-
-    course = new SimpleCourse (
-      bbCourse.getId().getExternalString(), bbCourse.getCourseId(), bbCourse.getBatchUid(),
-      bbCourse.getTitle(), bbCourse.getIsAvailable()
-    );
+    course = new SimpleCourse (loader.loadById (courseId));
   }
 
   /**
@@ -70,14 +64,7 @@ public class PrivateEyeCourseContext implements PrivateEyeContext {
     List<CourseMembership> memberships = loader.loadByCourseId (courseId);
 
     for (CourseMembership membership : memberships) {
-      SimpleMembership simpleMembership = new SimpleMembership (
-        membership.getId().getExternalString(), membership.getCourseId().getExternalString(),
-        membership.getUserId().getExternalString(), membership.getRoleAsString(),
-        membership.getIsAvailable(), membership.getEnrollmentDate().getTime(),
-        membership.getLastAccessDate().getTime()
-      );
-
-      this.memberships.put (membership.getId(), simpleMembership);
+      this.memberships.put (membership.getId(), new SimpleMembership (membership));
     }
   }
 

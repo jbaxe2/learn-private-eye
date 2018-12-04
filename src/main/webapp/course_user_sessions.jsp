@@ -35,7 +35,7 @@
   SimpleDateFormat dateFormatter = new SimpleDateFormat ("yyyy/MM/dd hh:mm:ss a z");
 
   try {
-    persistenceManager = PersistenceManager.getInstance();
+    persistenceManager = new PersistenceManager();
     loader = (UserDbLoader)persistenceManager.retrieveLoader (UserDbLoader.TYPE);
     user = new SimpleUser (loader.loadById (userId));
 
@@ -49,7 +49,7 @@
 
     courseUserSessions = executor.retrieveSessionsForUser();
   } catch (Exception e) {
-    %><p>Error with Learn PrivateEye:<br><%= e.getMessage() %></p><%
+    %><bbNG:error exception="<%= e %>" /><%
   }
 
   Map<String, SingleCourseUserSession> sessionsMap =

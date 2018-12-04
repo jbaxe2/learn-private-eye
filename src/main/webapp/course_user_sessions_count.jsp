@@ -29,7 +29,7 @@
   List<SimpleCourseUserSessionCount> sessionCountList = new ArrayList<>();
 
   try {
-    persistenceManager = PersistenceManager.getInstance();
+    persistenceManager = new PersistenceManager();
     loader = (UserDbLoader)persistenceManager.retrieveLoader (UserDbLoader.TYPE);
 
     context.loadCourseUsers (loader);
@@ -44,7 +44,7 @@
 
     sessionCountList = executor.retrieveNumberSessionsAllUsers();
   } catch (Exception e) {
-    %><p>Error with Learn PrivateEye:<br><%= e.getMessage() %></p><%
+    %><bbNG:error exception="<%= e %>" /><%
   }
 %>
 
@@ -72,13 +72,13 @@
       <%= currentUser.getFirstName() %>
     </bbNG:listElement>
 
-      <bbNG:listElement name="lastName" label="last Name">
-        <%= currentUser.getLastName() %>
-      </bbNG:listElement>
+    <bbNG:listElement name="lastName" label="Last Name">
+      <%= currentUser.getLastName() %>
+    </bbNG:listElement>
 
-      <bbNG:listElement name="session" label="Number of Sessions">
-        <%= sessionCount.getSessionCount() %>
-      </bbNG:listElement>
+    <bbNG:listElement name="session" label="Number of Sessions">
+      <%= sessionCount.getSessionCount() %>
+    </bbNG:listElement>
   </bbNG:pagedList>
 
 <%

@@ -27,23 +27,10 @@ public class PersistenceManager {
 
   private Connection connection;
 
-  private static PersistenceManager _instance;
-
-  /**
-   * The [getInstance] static method...
-   */
-  public static PersistenceManager getInstance() throws ConnectionNotAvailableException {
-    if (null == _instance) {
-      _instance = new PersistenceManager();
-    }
-
-    return _instance;
-  }
-
   /**
    * The [PersistenceManager] constructor...
    */
-  private PersistenceManager() throws ConnectionNotAvailableException {
+  public PersistenceManager() throws ConnectionNotAvailableException {
     _establishDatabase();
     _establishLoaderManager();
   }
@@ -54,16 +41,20 @@ public class PersistenceManager {
   public Loader retrieveLoader (String type) throws PersistenceException {
     Loader loader = null;
 
-    if (type.equals (CourseDbLoader.TYPE)) {
-      loader = bbPersistenceManager.getLoader (CourseDbLoader.TYPE);
-    } else if (type.equals (UserDbLoader.TYPE)) {
-      loader = bbPersistenceManager.getLoader (UserDbLoader.TYPE);
-    } else if (type.equals (CourseMembershipDbLoader.TYPE)) {
-      loader = bbPersistenceManager.getLoader (EnrollmentDbLoader.TYPE);
-    } else {
-      throw new PersistenceException (
-        "The loader type (" + type + ") is not supported."
-      );
+    switch (type) {
+      case CourseDbLoader.TYPE:
+        loader = bbPersistenceManager.getLoader (CourseDbLoader.TYPE);
+        break;
+      case UserDbLoader.TYPE:
+        loader = bbPersistenceManager.getLoader (UserDbLoader.TYPE);
+        break;
+      case CourseMembershipDbLoader.TYPE:
+        loader = bbPersistenceManager.getLoader (EnrollmentDbLoader.TYPE);
+        break;
+      default:
+        throw new PersistenceException (
+            "The loader type (" + type + ") is not supported."
+        );
     }
 
     return loader;

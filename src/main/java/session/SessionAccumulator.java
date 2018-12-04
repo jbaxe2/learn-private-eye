@@ -18,7 +18,7 @@ public class SessionAccumulator {
   /**
    * The [SessionAccumulator] constructor...
    */
-  public SessionAccumulator (String sessionId) {
+  SessionAccumulator (String sessionId) {
     this.sessionId = sessionId;
 
     activityAccumulator = new ActivityAccumulator();
@@ -27,7 +27,7 @@ public class SessionAccumulator {
   /**
    * The [addSessionActivity] method...
    */
-  public void addSessionActivity (ActivityEvent sessionEvent) throws SessionException {
+  void addSessionActivity (ActivityEvent sessionEvent) throws SessionException {
     if (!sessionId.equals (sessionEvent.getSessionId())) {
       throw new SessionException (
         "Unable to add a session activity event that does not belong to the session."
@@ -40,7 +40,7 @@ public class SessionAccumulator {
   /**
    * The [getSessionActivities] method...
    */
-  public List<ActivityEvent> getSessionActivities() {
+  List<ActivityEvent> getSessionActivities() {
     return activityAccumulator.getActivityEvents();
   }
 
