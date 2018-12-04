@@ -4,6 +4,9 @@
 0.0.8
 - Refactored a few classes.
 - Restructured project to conform to Maven build standards.
+- Created a few JSP views:
+  - Course users sessions counter.
+  - Course user sessions list.
 
 0.0.7
 - Renamed SingleCourseUserSession and SingCourseUserSessionsCollection.

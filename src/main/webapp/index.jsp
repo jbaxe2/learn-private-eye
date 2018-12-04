@@ -4,29 +4,7 @@
 
 <%@ page contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
 
-<%@ page import="
-  blackboard.db.ConnectionNotAvailableException,
-  blackboard.persist.Id,
-  blackboard.platform.plugin.PlugInUtil,
-  _persistence.PersistenceManager,
-  context.PrivateEyeContext,
-  context.PrivateEyeCourseContext"
-%>
-
 <bbNG:learningSystemPage title="Learn PrivateEye" authentication="Y" entitlement="course.control_panel.VIEW">
-<%
-  Id courseId = PlugInUtil.getCourseId();
-
-  PrivateEyeContext context = new PrivateEyeCourseContext (courseId);
-  PersistenceManager persistenceManager = null;
-
-  try {
-    persistenceManager = PersistenceManager.getInstance();
-  } catch (ConnectionNotAvailableException e) {
-    %><p>Error with Learn PrivateEye:<br><%= e.getMessage() %></p><%
-  }
-%>
-
   <bbNG:pageHeader>
     <bbNG:pageTitleBar title="Learn PrivateEye" />
 
@@ -35,11 +13,21 @@
     </bbNG:breadcrumbBar>
   </bbNG:pageHeader>
 
-  <p>Loaded course context and persistence manager successfully.</p>
+  <%
+    String contextQuery = request.getParameter ("context");
 
-<%
-  if (null != persistenceManager) {
-    persistenceManager.closeConnection();
-  }
-%>
+    if (null == contextQuery || contextQuery.isEmpty ()) {
+      contextQuery = "course";
+    }
+
+    try {
+      if (contextQuery.equals ("course")) {
+        %><%@ include file="course_user_sessions_count.jsp"%><%
+      } else if (contextQuery.equals ("user")) {
+        %><%@ include file="course_user_sessions_count.jsp"%><%
+      }
+    } catch (Exception e) {
+      %><%@ include file="error.jsp"%><%
+    }
+  %>
 </bbNG:learningSystemPage>

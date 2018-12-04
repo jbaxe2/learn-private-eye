@@ -70,9 +70,9 @@ public class PersistenceManager {
   }
 
   /**
-   * The [closeConnection] method...
+   * The [releaseConnection] method...
    */
-  public void closeConnection() {
+  public void releaseConnection () {
     if (null != connectionManager) {
       connectionManager.releaseConnection (connection);
     }

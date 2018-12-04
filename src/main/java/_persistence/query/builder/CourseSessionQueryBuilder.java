@@ -28,7 +28,7 @@ public class CourseSessionQueryBuilder implements QueryBuilder {
   public PreparedStatement retrieveNumberSessionsAllUsers() throws SQLException {
     String statement = "SELECT user_pk1, course_pk1, count(distinct session_id) " +
       "AS session_count FROM activity_accumulator WHERE course_pk1 = ? " +
-      "GROUP BY user_pk1, session_id ORDER BY timestamp DESC";
+      "GROUP BY course_pk1, user_pk1";
 
     PreparedStatement preparedStatement = connection.prepareStatement (statement);
     preparedStatement.setString (1, courseId.getExternalString().split ("_")[1]);

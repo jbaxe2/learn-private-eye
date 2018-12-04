@@ -25,7 +25,7 @@ public class CourseSessionQueryExecutor implements QueryExecutor {
   /**
    * The [CourseSessionQueryExecutor] constructor...
    */
-  CourseSessionQueryExecutor (Id courseId, PreparedStatement preparedStatement) {
+  public CourseSessionQueryExecutor (Id courseId, PreparedStatement preparedStatement) {
     this.courseId = courseId;
     this.preparedStatement = preparedStatement;
   }
@@ -35,7 +35,7 @@ public class CourseSessionQueryExecutor implements QueryExecutor {
    */
   public List<SimpleCourseUserSessionCount> retrieveNumberSessionsAllUsers() throws SQLException {
     ResultSet countResult = preparedStatement.executeQuery();
-    List<SimpleCourseUserSessionCount> sessionCountList = new ArrayList<SimpleCourseUserSessionCount>();
+    List<SimpleCourseUserSessionCount> sessionCountList = new ArrayList<>();
 
     while (countResult.next()) {
       SimpleCourseUserSessionCount sessionCount = new SimpleCourseUserSessionCount (

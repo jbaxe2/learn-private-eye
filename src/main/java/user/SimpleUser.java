@@ -1,5 +1,7 @@
 package user;
 
+import blackboard.data.user.User;
+
 /**
  * The [SimpleUser] class...
  */
@@ -38,6 +40,21 @@ public class SimpleUser {
     this.lastName = lastName;
     this.email = email;
     this.availableInd = availableInd;
+  }
+
+  /**
+   * The [SimpleUser] constructor...
+   */
+  public SimpleUser (User user) {
+    this.pk1 = user.getId().getExternalString();
+    this.userId = user.getUserName();
+    this.batchUid = user.getBatchUid();
+    this.studentId = user.getStudentId();
+    this.systemRole = user.getSystemRoleIdentifier();
+    this.firstName = user.getGivenName();
+    this.lastName = user.getFamilyName();
+    this.email = user.getEmailAddress();
+    this.availableInd = user.getIsAvailable();
   }
 
   public String getPk1() {

@@ -1,13 +1,16 @@
 package context;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import blackboard.data.course.Course;
 import blackboard.data.course.CourseMembership;
+import blackboard.data.user.User;
 
 import blackboard.persist.course.CourseDbLoader;
 import blackboard.persist.course.CourseMembershipDbLoader;
+import blackboard.persist.user.UserDbLoader;
 import blackboard.persist.Id;
 import blackboard.persist.PersistenceException;
 
@@ -23,9 +26,9 @@ public class PrivateEyeCourseContext implements PrivateEyeContext {
 
   private SimpleCourse course;
 
-  private List<SimpleUser> users;
+  private Map<Id, SimpleUser> users;
 
-  private List<SimpleMembership> memberships;
+  private Map<Id, SimpleMembership> memberships;
 
   /**
    * The [PrivateEyeCourseContext] constructor...
@@ -33,8 +36,8 @@ public class PrivateEyeCourseContext implements PrivateEyeContext {
   public PrivateEyeCourseContext (Id courseId) {
     this.courseId = courseId;
 
-    users = new ArrayList<SimpleUser>();
-    memberships = new ArrayList<SimpleMembership>();
+    users = new HashMap<>();
+    memberships = new HashMap<>();
   }
 
   /**
@@ -47,6 +50,17 @@ public class PrivateEyeCourseContext implements PrivateEyeContext {
       bbCourse.getId().getExternalString(), bbCourse.getCourseId(), bbCourse.getBatchUid(),
       bbCourse.getTitle(), bbCourse.getIsAvailable()
     );
+  }
+
+  /**
+   * The [loadCourseUsers] method...
+   */
+  public void loadCourseUsers (UserDbLoader loader) throws PersistenceException {
+    List<User> users = loader.loadByCourseId (courseId);
+
+    for (User user : users) {
+      this.users.put (user.getId(), new SimpleUser (user));
+    }
   }
 
   /**
@@ -63,8 +77,15 @@ public class PrivateEyeCourseContext implements PrivateEyeContext {
         membership.getLastAccessDate().getTime()
       );
 
-      this.memberships.add (simpleMembership);
+      this.memberships.put (membership.getId(), simpleMembership);
     }
+  }
+
+  /**
+   * The [getUser] method...
+   */
+  public SimpleUser getUser (Id userId) {
+    return users.get (userId);
   }
 
   public Id getContextId() {
@@ -75,11 +96,11 @@ public class PrivateEyeCourseContext implements PrivateEyeContext {
     return course;
   }
 
-  public List<SimpleUser> getUsers() {
+  public Map<Id, SimpleUser> getUsers() {
     return users;
   }
 
-  public List<SimpleMembership> getMemberships() {
+  public Map<Id, SimpleMembership> getMemberships() {
     return memberships;
   }
 }

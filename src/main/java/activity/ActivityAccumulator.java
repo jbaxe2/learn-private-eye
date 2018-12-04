@@ -13,7 +13,7 @@ public class ActivityAccumulator {
    * The [ActivityAccumulator] constructor...
    */
   public ActivityAccumulator() {
-    activityEvents = new ArrayList<ActivityEvent>();
+    activityEvents = new ArrayList<>();
   }
 
   /**
@@ -26,6 +26,6 @@ public class ActivityAccumulator {
   }
 
   public List<ActivityEvent> getActivityEvents() {
-    return new ArrayList<ActivityEvent>(activityEvents);
+    return new ArrayList<>(activityEvents);
   }
 }

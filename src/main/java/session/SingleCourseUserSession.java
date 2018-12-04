@@ -5,6 +5,8 @@ import blackboard.persist.Id;
 import _error.SessionException;
 import activity.ActivityEvent;
 
+import java.util.List;
+
 /**
  * The [SingleCourseUserSession] class...
  */
@@ -41,5 +43,24 @@ public class SingleCourseUserSession {
     }
 
     sessionAccumulator.addSessionActivity (sessionActivity);
+  }
+
+  /**
+   * The [getSessionActivities] method...
+   */
+  public List<ActivityEvent> getSessionActivities() {
+    return sessionAccumulator.getSessionActivities();
+  }
+
+  public Id getCourseId() {
+    return courseId;
+  }
+
+  public Id getUserId() {
+    return userId;
+  }
+
+  public String getSessionId() {
+    return sessionId;
   }
 }

@@ -18,4 +18,16 @@ public class SimpleCourseUserSessionCount {
     this.userPk1 = userPk1;
     this.sessionCount = sessionCount;
   }
+
+  public String getCoursePk1() {
+    return coursePk1;
+  }
+
+  public String getUserPk1() {
+    return userPk1;
+  }
+
+  public int getSessionCount() {
+    return sessionCount;
+  }
 }

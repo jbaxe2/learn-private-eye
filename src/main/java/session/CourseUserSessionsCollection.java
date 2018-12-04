@@ -23,7 +23,7 @@ public class CourseUserSessionsCollection {
    */
   public static CourseUserSessionsCollection getInstance() {
     if (null == _instance) {
-      _instance = new CourseUserSessionsCollection ();
+      _instance = new CourseUserSessionsCollection();
     }
 
     return _instance;
@@ -32,8 +32,8 @@ public class CourseUserSessionsCollection {
   /**
    * The [CourseUserSessionsCollection] constructor...
    */
-  private CourseUserSessionsCollection () {
-    courseSessions = new HashMap<String, SingleCourseUserSession>();
+  private CourseUserSessionsCollection() {
+    courseSessions = new HashMap<>();
   }
 
   /**
@@ -65,6 +65,6 @@ public class CourseUserSessionsCollection {
   }
 
   public Map<String, SingleCourseUserSession> getCourseSessions() {
-    return new HashMap<String, SingleCourseUserSession>(courseSessions);
+    return new HashMap<>(courseSessions);
   }
 }
