@@ -34,8 +34,11 @@ public class SingleCourseUserSession {
    * The [addSessionActivity] method...
    */
   public void addSessionActivity (ActivityEvent sessionActivity) throws SessionException {
-    if (!(sessionActivity.getUserPk1().equals (userId.getExternalString()) &&
-          sessionActivity.getCoursePk1().equals (courseId.getExternalString()) &&
+    String normalizedUserId = userId.getExternalString().split ("_")[1];
+    String normalizedCourseId = courseId.getExternalString().split ("_")[1];
+
+    if (!(sessionActivity.getUserPk1().equals (normalizedUserId) &&
+          sessionActivity.getCoursePk1().equals (normalizedCourseId) &&
           sessionActivity.getSessionId().equals (sessionId))) {
       throw new SessionException (
         "The session event does not correspond to the correct user and course session."

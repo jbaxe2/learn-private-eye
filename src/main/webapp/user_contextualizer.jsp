@@ -25,7 +25,7 @@
 
     if (!NonceUtil.validate (request, nonceId)) {
       %><bbNG:error
-          exception="Failed to validate nonce check to contextualize user." />
+        exception="Failed to validate nonce check to contextualize user." />
       <%
     }
 

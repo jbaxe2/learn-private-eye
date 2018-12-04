@@ -12,6 +12,7 @@ import _error.SessionException;
 import activity.ActivityEvent;
 import session.CourseUserSessionsCollection;
 import session.SimpleCourseUserSessionCount;
+import session.SingleCourseUserSession;
 
 /**
  * The [CourseSessionQueryExecutor] class...
@@ -46,23 +47,47 @@ public class CourseSessionQueryExecutor extends SessionQueryExecutor implements 
       CourseUserSessionsCollection.getInstance();
 
     while (sessionsResult.next()) {
-      ActivityEvent sessionEvent = new ActivityEvent (
-        sessionsResult.getString ("pk1"),
-        sessionsResult.getString ("user_pk1"),
-        sessionsResult.getString ("course_pk1"),
-        sessionsResult.getString ("group_pk1"),
-        sessionsResult.getString ("forum_pk1"),
-        sessionsResult.getString ("content_pk1"),
-        sessionsResult.getString ("event_type"),
-        sessionsResult.getString ("internal_handle"),
-        sessionsResult.getString ("data"),
-        sessionsResult.getDate ("timestamp"),
-        sessionsResult.getString ("session_id")
+      sessionsCollection.pushSessionEventToCollection (
+        _createActivityEvent (sessionsResult)
       );
-
-      sessionsCollection.pushSessionEventToCollection (sessionEvent);
     }
 
     return sessionsCollection;
+  }
+
+  /**
+   * The [retrieveSessionForUser] method...
+   */
+  public SingleCourseUserSession retrieveSessionForUser (
+    Id userId, String sessionId
+  ) throws SQLException, SessionException {
+    ResultSet sessionResult = preparedStatement.executeQuery();
+
+    SingleCourseUserSession session = new SingleCourseUserSession (courseId, userId, sessionId);
+
+    while (sessionResult.next()) {
+      session.addSessionActivity (_createActivityEvent (sessionResult));
+    }
+
+    return session;
+  }
+
+  /**
+   * The [_createActivityEvent] method...
+   */
+  private ActivityEvent _createActivityEvent (ResultSet sessionResult) throws SQLException {
+    return new ActivityEvent (
+      sessionResult.getString ("pk1"),
+      sessionResult.getString ("user_pk1"),
+      sessionResult.getString ("course_pk1"),
+      sessionResult.getString ("group_pk1"),
+      sessionResult.getString ("forum_pk1"),
+      sessionResult.getString ("content_pk1"),
+      sessionResult.getString ("event_type"),
+      sessionResult.getString ("internal_handle"),
+      sessionResult.getString ("data"),
+      sessionResult.getDate ("timestamp"),
+      sessionResult.getString ("session_id")
+    );
   }
 }

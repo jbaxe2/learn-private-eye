@@ -47,7 +47,7 @@ public class PrivateEyeUserContext implements PrivateEyeContext {
   ) throws PersistenceException {
     user = new SimpleUser (loader.loadByBatchUid (batchUid));
 
-    setUserId();
+    _setUserId();
   }
 
   /**
@@ -58,7 +58,7 @@ public class PrivateEyeUserContext implements PrivateEyeContext {
   ) throws PersistenceException {
     user = new SimpleUser (loader.loadByUserName (username));
 
-    setUserId();
+    _setUserId();
   }
 
   /**
@@ -85,9 +85,9 @@ public class PrivateEyeUserContext implements PrivateEyeContext {
   }
 
   /**
-   * The [setUserId] method...
+   * The [_setUserId] method...
    */
-  private void setUserId() {
+  private void _setUserId () {
     userId = Id.toId (User.DATA_TYPE, user.getPk1());
   }
 }

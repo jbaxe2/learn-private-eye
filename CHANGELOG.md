@@ -4,6 +4,7 @@
 0.0.9
 - Refactored simple types to allow passing regular types in to constructors.
 - Start of creating user context queries.
+- Additional course context query functionality.
 
 0.0.8
 - Refactored a few classes.

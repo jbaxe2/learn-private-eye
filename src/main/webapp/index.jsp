@@ -7,10 +7,6 @@
 <bbNG:learningSystemPage title="Learn PrivateEye" authentication="Y">
   <bbNG:pageHeader>
     <bbNG:pageTitleBar title="Learn PrivateEye" />
-
-    <bbNG:breadcrumbBar>
-      <bbNG:breadcrumb>Learn PrivateEye</bbNG:breadcrumb>
-    </bbNG:breadcrumbBar>
   </bbNG:pageHeader>
 
   <%
@@ -22,9 +18,23 @@
 
     try {
       if (contextQuery.equals ("course")) {
-        %><%@ include file="course_user_sessions_count.jsp"%><%
+        String userIdQuery = request.getParameter ("user_id");
+
+        if (null == userIdQuery || userIdQuery.isEmpty ()) {
+          %><%@ include file="course_user_sessions_count.jsp"%><%
+        } else {
+          String sessionIdQuery = request.getParameter ("session_id");
+
+          if (null == sessionIdQuery || sessionIdQuery.isEmpty()) {
+            %><%@ include file="course_user_sessions.jsp"%><%
+          } else {
+            %><%@ include file="course_user_session.jsp"%><%
+          }
+        }
       } else if (contextQuery.equals ("user")) {
         %><%@ include file="user_contextualizer.jsp"%><%
+      } else {
+        %><p>Context is: <%= contextQuery %></p><%
       }
     } catch (Exception e) {
       %><bbNG:error exception="<%= e %>" /><%

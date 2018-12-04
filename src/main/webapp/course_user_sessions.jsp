@@ -2,6 +2,7 @@
 
 <%@ page import="
   java.text.SimpleDateFormat,
+  java.util.HashMap,
   java.util.Map,
   blackboard.data.user.User,
   blackboard.persist.user.UserDbLoader,
@@ -52,8 +53,13 @@
     %><bbNG:error exception="<%= e %>" /><%
   }
 
-  Map<String, SingleCourseUserSession> sessionsMap =
-    courseUserSessions.getCourseSessions();
+  Map<String, SingleCourseUserSession> sessionsMap = new HashMap<>();
+
+  try {
+    sessionsMap = courseUserSessions.getCourseSessions();
+  } catch (NullPointerException e) {
+    %><bbNG:error exception="<%= e %>" /><%
+  }
 %>
 
   <p style="margin-bottom: 8px; font-size: medium; font-weight: 600; text-decoration: underline;">
@@ -65,8 +71,14 @@
       className="session.SingleCourseUserSession"
       objectVar="courseUserSession"
       recordCount="<%= sessionsMap.values().size() %>">
+    <%
+      String sessionId = courseUserSession.getSessionId();
+    %>
     <bbNG:listElement name="sessionId" label="Session ID" isRowHeader="true">
-      <%= courseUserSession.getSessionId() %>
+      <a href="index.jsp?context=course&course_id=<%= courseId.getExternalString()
+          %>&user_id=<%= user.getPk1() %>&session_id=<%= sessionId %>&startIndex=0">
+        <%= sessionId %>
+      </a>
     </bbNG:listElement>
 
     <bbNG:listElement name="timestamp" label="Date & Timestamp (Session Start)">

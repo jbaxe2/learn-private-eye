@@ -31,6 +31,7 @@ public class CourseSessionQueryBuilder implements QueryBuilder {
       "GROUP BY course_pk1, user_pk1";
 
     PreparedStatement preparedStatement = connection.prepareStatement (statement);
+
     preparedStatement.setString (1, courseId.getExternalString().split ("_")[1]);
 
     return preparedStatement;
@@ -41,8 +42,28 @@ public class CourseSessionQueryBuilder implements QueryBuilder {
    */
   public PreparedStatement retrieveSessionsForUser (Id userId) throws SQLException {
     String statement = "SELECT * FROM activity_accumulator WHERE course_pk1 = ? " +
-      "AND user_pk1 = ? GROUP BY session_id ORDER BY timestamp DESC";
+      "AND user_pk1 = ? ORDER BY timestamp DESC";
 
+    return _createUserSessionStatement (statement, userId);
+  }
+
+  /**
+   * The [retrieveSessionForUser] method...
+   */
+  public PreparedStatement retrieveSessionForUser (Id userId, String sessionId) throws SQLException {
+    String statement = "SELECT * FROM activity_accumulator WHERE course_pk1 = ? " +
+      "AND user_pk1 = ? AND session_id = ? ORDER BY timestamp DESC";
+
+    PreparedStatement preparedStatement = _createUserSessionStatement (statement, userId);
+    preparedStatement.setString (3, sessionId);
+
+    return preparedStatement;
+  }
+
+  /**
+   * The [_createUserSessionStatement] private method...
+   */
+  private PreparedStatement _createUserSessionStatement (String statement, Id userId) throws SQLException {
     PreparedStatement preparedStatement = connection.prepareStatement (statement);
 
     preparedStatement.setString (1, courseId.getExternalString().split ("_")[1]);
