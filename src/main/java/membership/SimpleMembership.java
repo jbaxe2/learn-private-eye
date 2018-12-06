@@ -1,8 +1,8 @@
 package membership;
 
-import blackboard.data.course.CourseMembership;
-
 import java.util.Date;
+
+import blackboard.data.course.CourseMembership;
 
 /**
  * The [SimpleMembership] class...

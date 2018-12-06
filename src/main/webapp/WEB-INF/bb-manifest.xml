@@ -31,14 +31,14 @@
           <link>
             <type value="course_tool" />
             <name value="Learn PrivateEye" />
-            <url value="index.jsp?context=course&amp;startIndex=0" />
+            <url value="index.jsp?_context=course&amp;startIndex=0" />
             <description value="Learn PrivateEye is a simple user tracking report tool." />
           </link>
 
           <link>
             <type value="system_tool" />
             <name value="Learn PrivateEye" />
-            <url value="index.jsp?context=user" />
+            <url value="index.jsp?_context=user" />
             <description value="Learn PrivateEye is a simple user tracking report tool." />
           </link>
         </links>

@@ -1,11 +1,11 @@
 package session;
 
+import java.util.List;
+
 import blackboard.persist.Id;
 
 import _error.SessionException;
 import activity.ActivityEvent;
-
-import java.util.List;
 
 /**
  * The [SingleCourseUserSession] class...

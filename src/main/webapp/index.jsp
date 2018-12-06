@@ -10,7 +10,7 @@
   </bbNG:pageHeader>
 
   <%
-    String contextQuery = request.getParameter ("context");
+    String contextQuery = request.getParameter ("_context");
 
     if (null == contextQuery || contextQuery.isEmpty ()) {
       contextQuery = "course";

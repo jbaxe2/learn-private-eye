@@ -18,7 +18,7 @@
 
       <bbNG:actionButton
           title="Initiate Tracking"
-          url="index.jsp?context=user&contextualize=sessions" />
+          url="index.jsp?_context=user&contextualize=sessions" />
     </bbNG:form><%
   } else {
     String nonceId = request.getParameter ("nonceId");

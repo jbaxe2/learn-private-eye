@@ -7,10 +7,10 @@
   blackboard.persist.user.UserDbLoader,
   blackboard.persist.Id,
   blackboard.platform.plugin.PlugInUtil,
+  _context.PrivateEyeCourseContext,
   _persistence.PersistenceManager,
   _persistence.query.builder.CourseSessionQueryBuilder,
   _persistence.query.executor.CourseSessionQueryExecutor,
-  context.PrivateEyeCourseContext,
   session.SimpleCourseUserSessionCount,
   user.SimpleUser" %>
 
@@ -63,7 +63,7 @@
     );
   %>
     <bbNG:listElement name="username" label="Username" isRowHeader="true">
-      <a href="index.jsp?context=course&course_id=<%= courseId.getExternalString()
+      <a href="index.jsp?_context=course&course_id=<%= courseId.getExternalString()
           %>&user_id=<%= currentUser.getPk1() %>&startIndex=0">
         <%= currentUser.getUserId() %>
       </a>

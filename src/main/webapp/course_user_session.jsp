@@ -6,10 +6,10 @@
   blackboard.persist.user.UserDbLoader,
   blackboard.persist.Id,
   blackboard.platform.plugin.PlugInUtil,
+  _context.PrivateEyeCourseContext,
   _persistence.PersistenceManager,
   _persistence.query.builder.CourseSessionQueryBuilder,
   _persistence.query.executor.CourseSessionQueryExecutor,
-  context.PrivateEyeCourseContext,
   session.SingleCourseUserSession,
   user.SimpleUser" %>
 <%@ page import="activity.ActivityEvent" %>
@@ -52,13 +52,15 @@
     );
 
     singleSession = executor.retrieveSessionForUser (userId, sessionId);
+    sessionEvents = singleSession.getSessionActivities();
   } catch (Exception e) {
     %><bbNG:error exception="<%= e %>" /><%
   }
 %>
 
   <p style="margin-bottom: 8px; font-size: medium; font-weight: 600; text-decoration: underline;">
-    Tracked list of sessions for <%= user.getFirstName() %>&nbsp;<%= user.getLastName() %>:
+    Tracked session (<%= singleSession.getSessionId() %>) for
+    <%= user.getFirstName() %>&nbsp;<%= user.getLastName() %>:
   </p>
 
   <bbNG:pagedList
@@ -66,9 +68,21 @@
       className="activity.ActivityEvent"
       objectVar="sessionEvent"
       recordCount="<%= sessionEvents.size() %>">
-        <bbNG:listElement name="timestamp" label="Date & Timestamp (Session Start)">
-          <%= dateFormatter.format (sessionEvent.getTimestamp()) %>
-        </bbNG:listElement>
+    <bbNG:listElement name="timestamp" label="Date & Timestamp">
+      <%= dateFormatter.format (sessionEvent.getTimestamp()) %>
+    </bbNG:listElement>
+
+    <bbNG:listElement name="eventType" label="Event Type">
+      <%= sessionEvent.getEventType() %>
+    </bbNG:listElement>
+
+    <bbNG:listElement name="internalHandle" label="Internal Handle">
+      <%= sessionEvent.getInternalHandle() %>
+    </bbNG:listElement>
+
+    <bbNG:listElement name="extraData" label="Relevant or Extra Information">
+      <%= sessionEvent.getData() %>
+    </bbNG:listElement>
   </bbNG:pagedList>
 
 <%

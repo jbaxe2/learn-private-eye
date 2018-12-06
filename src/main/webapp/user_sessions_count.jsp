@@ -4,10 +4,10 @@
   java.util.List,
   blackboard.persist.course.CourseDbLoader,
   blackboard.persist.user.UserDbLoader,
+  _context.PrivateEyeUserContext,
   _persistence.PersistenceManager,
   _persistence.query.builder.UserSessionQueryBuilder,
   _persistence.query.executor.UserSessionQueryExecutor,
-  context.PrivateEyeUserContext,
   course.SimpleCourse,
   session.SimpleCourseUserSessionCount" %>
 <%@ page import="blackboard.data.course.Course" %>
