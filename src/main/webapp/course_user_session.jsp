@@ -1,5 +1,3 @@
-<%@ taglib prefix="bbNG" uri="/bbNG" %>
-
 <%@ page import="
   java.text.SimpleDateFormat,
   blackboard.data.user.User,
@@ -10,9 +8,11 @@
   _persistence.PersistenceManager,
   _persistence.query.builder.CourseSessionQueryBuilder,
   _persistence.query.executor.CourseSessionQueryExecutor,
+  activity.ActivityEvent,
   session.SingleCourseUserSession,
   user.SimpleUser" %>
-<%@ page import="activity.ActivityEvent" %>
+
+<%@ taglib prefix="bbNG" uri="/bbNG" %>
 
 <bbNG:includedPage authentication="Y" entitlement="course.control_panel.VIEW">
 
@@ -20,13 +20,13 @@
   Id courseId = PlugInUtil.getCourseId();
   Id userId = Id.toId (User.DATA_TYPE, request.getParameter ("user_id"));
 
-  String sessionId = request.getParameter ("session_id");
+  String sessionId = request.getParameter ("lpe_sid");
 
   SimpleDateFormat dateFormatter = new SimpleDateFormat ("yyyy/MM/dd hh:mm:ss a z");
 
   UserDbLoader loader = null;
 
-  PrivateEyeCourseContext context = new PrivateEyeCourseContext (courseId);
+  //PrivateEyeCourseContext context = new PrivateEyeCourseContext (courseId);
   PersistenceManager persistenceManager = null;
 
   CourseSessionQueryBuilder builder = null;
@@ -67,8 +67,10 @@
       collection="<%= sessionEvents %>"
       className="activity.ActivityEvent"
       objectVar="sessionEvent"
-      recordCount="<%= sessionEvents.size() %>">
-    <bbNG:listElement name="timestamp" label="Date & Timestamp">
+      recordCount="<%= sessionEvents.size() %>"
+      initialSortCol="timestamp"
+      initialSortBy="DESCENDING">
+    <bbNG:listElement name="timestamp" label="Date &amp; Timestamp" isRowHeader="true">
       <%= dateFormatter.format (sessionEvent.getTimestamp()) %>
     </bbNG:listElement>
 

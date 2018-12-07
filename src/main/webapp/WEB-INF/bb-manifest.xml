@@ -6,7 +6,7 @@
     <handle value="learn-private-eye" />
     <description
         value="Learn PrivateEye is a simple building block to view tracking information of Learn users, similar to what was available in the Vista days." />
-    <version value="0.0.9" />
+    <version value="0.10.20181207" />
 
     <requires>
       <bbversion value="9.1" />
@@ -31,32 +31,24 @@
           <link>
             <type value="course_tool" />
             <name value="Learn PrivateEye" />
-            <url value="index.jsp?_context=course&amp;startIndex=0" />
+            <url value="index.jsp?context=course&amp;startIndex=0" />
             <description value="Learn PrivateEye is a simple user tracking report tool." />
           </link>
 
           <link>
             <type value="system_tool" />
             <name value="Learn PrivateEye" />
-            <url value="index.jsp?_context=user" />
+            <url value="index.jsp?context=user" />
             <description value="Learn PrivateEye is a simple user tracking report tool." />
           </link>
         </links>
       </application>
     </application-defs>
 
-    <!-- Portal Module Definitions -->
-    <module-defs>
-    </module-defs>
-
-    <!-- Custom Content Types -->
-    <content-handlers>
-    </content-handlers>
-
     <!-- Permissions required for proper operation -->
     <permissions>
-      <permission type="runtime" name="db.connection.*" />
       <permission type="socket" name="*" actions="connect,resolve" />
+      <permission type="runtime" name="db.connection.*" />
       <permission type="attribute" name="user.authinfo" actions="get" />
       <permission type="attribute" name="user.personalinfo" actions="get" />
       <permission type="attribute" name="enrollment.rowstatus" actions="get" />
@@ -65,7 +57,5 @@
       <permission type="persist" name="coursemembership" actions="read" />
       <permission type="persist" name="enrollment" actions="read" />
     </permissions>
-
   </plugin>
-
 </manifest>

@@ -27,11 +27,11 @@ public class UserSessionQueryBuilder implements QueryBuilder {
    */
   public PreparedStatement retrieveNumberOfSessions() throws SQLException {
     String statement = "SELECT user_pk1, course_pk1, count(distinct session_id) " +
-      "FROM activity_accumulator WHERE user_pk1 = ? GROUP BY user_pk1, course_pk1 " +
-      "ORDER BY course_pk1";
+      "AS session_count FROM activity_accumulator WHERE user_pk1 = ? " +
+      "GROUP BY user_pk1, course_pk1 ORDER BY course_pk1";
 
     PreparedStatement preparedStatement = connection.prepareStatement (statement);
-    preparedStatement.setString (1, userId.getExternalString());
+    preparedStatement.setString (1, userId.getExternalString().split ("_")[1]);
 
     return preparedStatement;
   }

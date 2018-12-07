@@ -1,5 +1,3 @@
-<%@ taglib prefix="bbNG" uri="/bbNG" %>
-
 <%@ page import="
   java.text.SimpleDateFormat,
   java.util.HashMap,
@@ -15,6 +13,8 @@
   session.CourseUserSessionsCollection,
   session.SingleCourseUserSession,
   user.SimpleUser" %>
+
+<%@ taglib prefix="bbNG" uri="/bbNG" %>
 
 <bbNG:includedPage authentication="Y" entitlement="course.control_panel.VIEW">
 
@@ -70,18 +70,20 @@
       collection="<%= sessionsMap.values() %>"
       className="session.SingleCourseUserSession"
       objectVar="courseUserSession"
-      recordCount="<%= sessionsMap.values().size() %>">
+      recordCount="<%= sessionsMap.values().size() %>"
+      initialSortCol="timestamp"
+      initialSortBy="DESCENDING">
     <%
       String sessionId = courseUserSession.getSessionId();
     %>
     <bbNG:listElement name="sessionId" label="Session ID" isRowHeader="true">
-      <a href="index.jsp?_context=course&course_id=<%= courseId.getExternalString()
-          %>&user_id=<%= user.getPk1() %>&session_id=<%= sessionId %>&startIndex=0">
+      <a href="index.jsp?context=course&course_id=<%= courseId.getExternalString()
+          %>&user_id=<%= user.getPk1() %>&lpe_sid=<%= sessionId %>&startIndex=0">
         <%= sessionId %>
       </a>
     </bbNG:listElement>
 
-    <bbNG:listElement name="timestamp" label="Date & Timestamp (Session Start)">
+    <bbNG:listElement name="timestamp" label="Date &amp; Timestamp">
       <%=
         dateFormatter.format (
           courseUserSession.getSessionActivities().get (0).getTimestamp()

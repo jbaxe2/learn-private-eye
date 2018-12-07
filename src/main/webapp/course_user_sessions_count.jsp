@@ -1,5 +1,3 @@
-<%@ taglib prefix="bbNG" uri="/bbNG" %>
-
 <%@ page import="
   java.util.List,
   java.util.ArrayList,
@@ -13,6 +11,8 @@
   _persistence.query.executor.CourseSessionQueryExecutor,
   session.SimpleCourseUserSessionCount,
   user.SimpleUser" %>
+
+<%@ taglib prefix="bbNG" uri="/bbNG" %>
 
 <bbNG:includedPage authentication="Y" entitlement="course.control_panel.VIEW">
 
@@ -63,7 +63,7 @@
     );
   %>
     <bbNG:listElement name="username" label="Username" isRowHeader="true">
-      <a href="index.jsp?_context=course&course_id=<%= courseId.getExternalString()
+      <a href="index.jsp?context=course&course_id=<%= courseId.getExternalString()
           %>&user_id=<%= currentUser.getPk1() %>&startIndex=0">
         <%= currentUser.getUserId() %>
       </a>

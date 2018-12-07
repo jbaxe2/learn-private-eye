@@ -1,10 +1,16 @@
 # Learn PrivateEye
 **(learn-private-eye)**
 
+0.10.20181207
+- Changed versioning scheme (increments previous deployed implementation).
+  - Major, minor, patch (dated)
+- Various refactorings to resolve some errors.
+- Minor refactorings for updating typos and the like.
+
 0.0.9
 - Refactored simple types to allow passing regular types in to constructors.
-- Start of creating user _context queries.
-- Additional course _context query functionality.
+- Start of creating user context queries.
+- Additional course context query functionality.
 
 0.0.8
 - Refactored a few classes.
@@ -17,7 +23,7 @@
 - Renamed SingleCourseUserSession and SingCourseUserSessionsCollection.
 
 0.0.6
-- Start of fleshing out index.jsp with main.java.course main.java._context and persistence manager
+- Start of fleshing out index.jsp with course context and persistence manager
 instances.
 
 0.0.5
@@ -27,11 +33,11 @@ instances.
 0.0.4
 - Developed more contextual aspects.
 - Minor refactoring to provide better consistency across code base.
-- Start of fleshing out main.java.activity accumulator aspects.
+- Start of fleshing out activity accumulator aspects.
 
 0.0.3
 - Created some simple value objects.
-- Start of developing a main.java._context (based on main.java.course or main.java.user).
+- Start of developing a context (based on course or user).
 - Added some building block configuration files (such as the bb-manifest).
 
 0.0.2
