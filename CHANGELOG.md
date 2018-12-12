@@ -1,6 +1,10 @@
 # Learn PrivateEye
 **(learn-private-eye)**
 
+0.10.20181212
+- Worked towards getting the user tracking count to run successfully.
+- Start of system (non-course-based) tracking for users.
+
 0.10.20181207
 - Changed versioning scheme (increments previous deployed implementation).
   - Major, minor, patch (dated)

@@ -9,7 +9,7 @@
     %><bbNG:form
         id="userContextualizer"
         name="userContextualizer"
-        method="POST"
+        method="post"
         action="index.jsp?context=user&contextualize=sessions&startIndex=0">
       <p style="margin-bottom: 8px; font-size: medium; font-weight: 600;">
         Please enter the username for the user you would like to track:
@@ -25,6 +25,10 @@
   } else {
     if ("sessions".equals (contextualize)) {
       %><%@include file="user_sessions_count.jsp"%><%
+    } else if ("system".equals (contextualize)) {
+      %><%@include file="system_user_sessions.jsp"%><%
+    } else {
+      %><%@ include file="error.jsp"%><%
     }
   }
 %>

@@ -1,14 +1,17 @@
 <%@ page import="
   java.util.List,
+  java.util.ArrayList,
   blackboard.data.course.Course,
   blackboard.persist.course.CourseDbLoader,
   blackboard.persist.user.UserDbLoader,
+  blackboard.persist.Id,
   _context.PrivateEyeUserContext,
   _persistence.PersistenceManager,
   _persistence.query.builder.UserSessionQueryBuilder,
   _persistence.query.executor.UserSessionQueryExecutor,
   course.SimpleCourse,
-  session.SimpleCourseUserSessionCount" %>
+  session.SimpleCourseUserSessionCount,
+  user.SimpleUser" %>
 
 <%@ taglib prefix="bbNG" uri="/bbNG" %>
 
@@ -54,7 +57,7 @@
 
   <p style="margin-bottom: 8px; font-size: medium; font-weight: 600; text-decoration: underline;">
     Tracked session count (by course) for
-    <%= user.getFirstName()%>&nbsp;<%= user.getLastName() %>:
+    <%= user.getFirstName() %>&nbsp;<%= user.getLastName() %>:
   </p>
 
   <bbNG:pagedList
@@ -64,17 +67,32 @@
       recordCount="<%= sessionCountList.size() %>"
       initialSortCol="courseId">
   <%
-      Id courseId = Id.toId (Course.DATA_TYPE, sessionCount.getCoursePk1());
+      Id currentCourseId = null;
       SimpleCourse currentCourse = null;
 
       try {
-        currentCourse = context.loadCourseForContext (courseLoader, courseId);
+        if (null != sessionCount.getCoursePk1()) {
+          currentCourseId = Id.toId (Course.DATA_TYPE, sessionCount.getCoursePk1());
+          currentCourse = context.loadCourseForContext(courseLoader, currentCourseId);
+        }
       } catch (Exception e) {
         %><bbNG:error exception="<%= e %>" /><%
       }
   %>
     <bbNG:listElement name="courseId" label="Course ID" isRowHeader="true">
-      <%= currentCourse.getBatchUid() %>
+      <%
+        if (null == currentCourse) {
+          %><a href="index.jsp?context=user&contextualize=system&user_id=<%= user.getPk1()
+              %>&startIndex=0">
+            (not course-based tracking)
+          </a><%
+        } else {
+          %><a href="index.jsp?context=course&course_id=<%= currentCourseId.getExternalString()
+              %>&user_id=<%= user.getPk1() %>&startIndex=0">
+            <%= currentCourse.getCourseId() %>
+          </a><%
+        }
+      %>
     </bbNG:listElement>
 
     <bbNG:listElement name="username" label="Username">

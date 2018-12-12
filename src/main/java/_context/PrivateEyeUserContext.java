@@ -67,11 +67,10 @@ public class PrivateEyeUserContext implements PrivateEyeContext {
   public SimpleCourse loadCourseForContext (
     CourseDbLoader loader, Id courseId
   ) throws PersistenceException {
-    if (!loadedCourses.containsKey (courseId)) {
-      SimpleCourse course = new SimpleCourse (loader.loadById (courseId));
-
-      loadedCourses.put (courseId, course);
-    }
+    loadedCourses.putIfAbsent (
+      courseId,
+      new SimpleCourse (loader.loadById (courseId))
+    );
 
     return loadedCourses.get (courseId);
   }

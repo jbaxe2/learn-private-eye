@@ -31,7 +31,6 @@ public class CourseSessionQueryBuilder implements QueryBuilder {
       "GROUP BY course_pk1, user_pk1";
 
     PreparedStatement preparedStatement = connection.prepareStatement (statement);
-
     preparedStatement.setString (1, courseId.getExternalString().split ("_")[1]);
 
     return preparedStatement;
