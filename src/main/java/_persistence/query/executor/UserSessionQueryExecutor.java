@@ -3,10 +3,13 @@ package _persistence.query.executor;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import blackboard.persist.Id;
+
 import session.SimpleCourseUserSessionCount;
+import session.SingleUserSession;
 
 /**
  * The [UserSessionQueryExecutor] class...
@@ -26,5 +29,14 @@ public class UserSessionQueryExecutor extends SessionQueryExecutor implements Qu
    */
   public List<SimpleCourseUserSessionCount> retrieveNumberOfSessions() throws SQLException {
     return super.retrieveNumberOfSessions (preparedStatement);
+  }
+
+  /**
+   * The [retrieveSystemSessions] method...
+   */
+  public List<SingleUserSession> retrieveSystemSessions() {
+    List<SingleUserSession> sessions = new ArrayList<>();
+
+    return sessions;
   }
 }

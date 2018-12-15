@@ -1,6 +1,9 @@
 # Learn PrivateEye
 **(learn-private-eye)**
 
+0.10.20181214
+- Work towards system (non-course-based) queries for tracking users.
+
 0.10.20181212
 - Worked towards getting the user tracking count to run successfully.
 - Start of system (non-course-based) tracking for users.
