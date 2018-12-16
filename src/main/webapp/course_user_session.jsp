@@ -48,10 +48,10 @@
     );
 
     executor = new CourseSessionQueryExecutor (
-      courseId, builder.retrieveSessionForUser (userId, sessionId)
+      builder.retrieveSessionForUser (userId, sessionId)
     );
 
-    singleSession = executor.retrieveSessionForUser (userId, sessionId);
+    singleSession = executor.retrieveSessionForUser (courseId, userId, sessionId);
     sessionEvents = singleSession.getSessionActivities();
   } catch (Exception e) {
     %><bbNG:error exception="<%= e %>" /><%

@@ -9,7 +9,7 @@ import java.util.List;
 import blackboard.persist.Id;
 
 import _error.SessionException;
-import activity.ActivityEvent;
+
 import session.CourseUserSessionsCollection;
 import session.SimpleCourseUserSessionCount;
 import session.SingleCourseUserSession;
@@ -17,30 +17,30 @@ import session.SingleCourseUserSession;
 /**
  * The [CourseSessionQueryExecutor] class...
  */
-public class CourseSessionQueryExecutor extends SessionQueryExecutor implements QueryExecutor {
-  private final Id courseId;
-
+public class CourseSessionQueryExecutor
+    extends SessionQueryExecutor implements QueryExecutor {
   private final PreparedStatement preparedStatement;
 
   /**
    * The [CourseSessionQueryExecutor] constructor...
    */
-  public CourseSessionQueryExecutor (Id courseId, PreparedStatement preparedStatement) {
-    this.courseId = courseId;
+  public CourseSessionQueryExecutor (PreparedStatement preparedStatement) {
     this.preparedStatement = preparedStatement;
   }
 
   /**
    * The [retrieveNumberSessionsAllUsers] method...
    */
-  public List<SimpleCourseUserSessionCount> retrieveNumberSessionsAllUsers() throws SQLException {
+  public List<SimpleCourseUserSessionCount> retrieveNumberSessionsAllUsers()
+      throws SQLException {
     return super.retrieveNumberOfSessions (preparedStatement);
   }
 
   /**
    * The [retrieveSessionsForUser] method...
    */
-  public CourseUserSessionsCollection retrieveSessionsForUser() throws SQLException, SessionException {
+  public CourseUserSessionsCollection retrieveSessionsForUser()
+      throws SQLException, SessionException {
     ResultSet sessionsResult = preparedStatement.executeQuery();
 
     CourseUserSessionsCollection sessionsCollection =
@@ -59,35 +59,17 @@ public class CourseSessionQueryExecutor extends SessionQueryExecutor implements 
    * The [retrieveSessionForUser] method...
    */
   public SingleCourseUserSession retrieveSessionForUser (
-    Id userId, String sessionId
+    Id courseId, Id userId, String sessionId
   ) throws SQLException, SessionException {
     ResultSet sessionResult = preparedStatement.executeQuery();
 
-    SingleCourseUserSession session = new SingleCourseUserSession (courseId, userId, sessionId);
+    SingleCourseUserSession session =
+      new SingleCourseUserSession (courseId, userId, sessionId);
 
     while (sessionResult.next()) {
       session.addSessionActivity (_createActivityEvent (sessionResult));
     }
 
     return session;
-  }
-
-  /**
-   * The [_createActivityEvent] method...
-   */
-  private ActivityEvent _createActivityEvent (ResultSet sessionResult) throws SQLException {
-    return new ActivityEvent (
-      sessionResult.getString ("pk1"),
-      sessionResult.getString ("user_pk1"),
-      sessionResult.getString ("course_pk1"),
-      sessionResult.getString ("group_pk1"),
-      sessionResult.getString ("forum_pk1"),
-      sessionResult.getString ("content_pk1"),
-      sessionResult.getString ("event_type"),
-      sessionResult.getString ("internal_handle"),
-      sessionResult.getString ("data"),
-      sessionResult.getDate ("timestamp"),
-      sessionResult.getString ("session_id")
-    );
   }
 }

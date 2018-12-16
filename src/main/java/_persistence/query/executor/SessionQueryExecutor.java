@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import activity.ActivityEvent;
 import session.SimpleCourseUserSessionCount;
 
 /**
@@ -33,5 +34,24 @@ abstract class SessionQueryExecutor {
     }
 
     return sessionCountList;
+  }
+
+  /**
+   * The [_createActivityEvent] method...
+   */
+  ActivityEvent _createActivityEvent (ResultSet sessionResult) throws SQLException {
+    return new ActivityEvent (
+      sessionResult.getString ("pk1"),
+      sessionResult.getString ("user_pk1"),
+      sessionResult.getString ("course_pk1"),
+      sessionResult.getString ("group_pk1"),
+      sessionResult.getString ("forum_pk1"),
+      sessionResult.getString ("content_pk1"),
+      sessionResult.getString ("event_type"),
+      sessionResult.getString ("internal_handle"),
+      sessionResult.getString ("data"),
+      sessionResult.getDate ("timestamp"),
+      sessionResult.getString ("session_id")
+    );
   }
 }
