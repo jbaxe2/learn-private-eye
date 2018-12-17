@@ -20,7 +20,8 @@ public class SimpleCourse {
    * The [SimpleCourse] constructor...
    */
   public SimpleCourse (
-    String pk1, String courseId, String batchUid, String name, boolean availableInd
+    String pk1, String courseId, String batchUid, String name,
+    boolean availableInd
   ) {
     this.pk1 = pk1;
     this.courseId = courseId;

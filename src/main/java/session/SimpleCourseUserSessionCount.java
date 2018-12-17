@@ -13,7 +13,9 @@ public class SimpleCourseUserSessionCount {
   /**
    * The [SimpleCourseUserSessionCount] constructor...
    */
-  public SimpleCourseUserSessionCount (String coursePk1, String userPk1, int sessionCount) {
+  public SimpleCourseUserSessionCount (
+    String coursePk1, String userPk1, int sessionCount
+  ) {
     this.coursePk1 = coursePk1;
     this.userPk1 = userPk1;
     this.sessionCount = sessionCount;

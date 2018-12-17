@@ -8,8 +8,7 @@
   blackboard.platform.plugin.PlugInUtil,
   _context.PrivateEyeCourseContext,
   _persistence.PersistenceManager,
-  _persistence.query.builder.CourseSessionQueryBuilder,
-  _persistence.query.executor.CourseSessionQueryExecutor,
+  _persistence.query.CourseSessionQuery,
   session.CourseUserSessionsCollection,
   session.SingleCourseUserSession,
   user.SimpleUser" %>
@@ -25,39 +24,25 @@
 
   PrivateEyeCourseContext context = new PrivateEyeCourseContext (courseId);
   PersistenceManager persistenceManager = null;
-
-  CourseSessionQueryBuilder builder = null;
-  CourseSessionQueryExecutor executor = null;
-
+  CourseSessionQuery courseQuery = null;
+  CourseUserSessionsCollection courseUserSessions = null;
   SimpleUser user = null;
 
-  CourseUserSessionsCollection courseUserSessions = null;
-
   SimpleDateFormat dateFormatter = new SimpleDateFormat ("yyyy/MM/dd hh:mm:ss a z");
+  Map<String, SingleCourseUserSession> sessionsMap = new HashMap<>();
 
   try {
     persistenceManager = new PersistenceManager();
     loader = (UserDbLoader)persistenceManager.retrieveLoader (UserDbLoader.TYPE);
     user = new SimpleUser (loader.loadById (userId));
 
-    builder = new CourseSessionQueryBuilder (
+    courseQuery = new CourseSessionQuery (
       courseId, persistenceManager.getConnection()
     );
 
-    executor = new CourseSessionQueryExecutor (
-      courseId, builder.retrieveSessionsForUser (userId)
-    );
-
-    courseUserSessions = executor.retrieveSessionsForUser();
-  } catch (Exception e) {
-    %><bbNG:error exception="<%= e %>" /><%
-  }
-
-  Map<String, SingleCourseUserSession> sessionsMap = new HashMap<>();
-
-  try {
+    courseUserSessions = courseQuery.retrieveSessionsForUser (userId);
     sessionsMap = courseUserSessions.getCourseSessions();
-  } catch (NullPointerException e) {
+  } catch (Exception e) {
     %><bbNG:error exception="<%= e %>" /><%
   }
 %>

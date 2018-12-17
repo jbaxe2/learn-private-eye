@@ -46,9 +46,10 @@ public class UserSessionQueryBuilder implements QueryBuilder {
   /**
    * The [retrieveSystemSession] method...
    */
-  public PreparedStatement retrieveSystemSession (String sessionId) throws SQLException {
+  public PreparedStatement retrieveSystemSession (String sessionId)
+      throws SQLException {
     String statement = "SELECT * FROM activity_accumulator WHERE user_pk1 = ? " +
-        "AND session_id = ? AND course_pk1 = NULL ORDER BY timestamp";
+      "AND session_id = ? AND course_pk1 = NULL ORDER BY timestamp";
 
     PreparedStatement preparedStatement = _createUserSessionStatement (statement);
     preparedStatement.setString (2, sessionId);
@@ -59,7 +60,8 @@ public class UserSessionQueryBuilder implements QueryBuilder {
   /**
    * The [_createUserSessionStatement] private method...
    */
-  private PreparedStatement _createUserSessionStatement (String statement) throws SQLException {
+  private PreparedStatement _createUserSessionStatement (String statement)
+      throws SQLException {
     PreparedStatement preparedStatement = connection.prepareStatement (statement);
     preparedStatement.setString (1, userId.getExternalString().split ("_")[1]);
 

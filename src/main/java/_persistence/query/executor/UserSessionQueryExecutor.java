@@ -63,8 +63,15 @@ public class UserSessionQueryExecutor
   /**
    * The [retrieveSystemSession] method...
    */
-  public SingleUserSession retrieveSystemSession() {
-    SingleUserSession userSession = null;
+  public SingleUserSession retrieveSystemSession (String sessionId)
+      throws SQLException, SessionException {
+    ResultSet sessionResult = preparedStatement.executeQuery();
+
+    SingleUserSession userSession = new SingleUserSession (userId, sessionId);
+
+    while (sessionResult.next()) {
+      userSession.addSessionActivity (_createActivityEvent (sessionResult));
+    }
 
     return userSession;
   }

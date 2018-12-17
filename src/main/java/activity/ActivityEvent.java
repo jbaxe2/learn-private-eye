@@ -32,9 +32,9 @@ public class ActivityEvent {
    * The [ActivityEvent] constructor...
    */
   public ActivityEvent (
-    String pk1, String userPk, String coursePk1, String groupPk1, String forumPk1,
-    String contentPk1, String eventType, String internalHandle, String data,
-    Date timestamp, String sessionId
+    String pk1, String userPk, String coursePk1, String groupPk1,
+    String forumPk1, String contentPk1, String eventType,
+    String internalHandle, String data, Date timestamp, String sessionId
   ) {
     this.pk1 = pk1;
     this.userPk1 = userPk;

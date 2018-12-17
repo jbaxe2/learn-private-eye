@@ -24,9 +24,13 @@ public class SingleCourseUserSession extends SingleUserSession {
    * The [addSessionActivity] method...
    */
   @Override
-  public void addSessionActivity (ActivityEvent sessionActivity) throws SessionException {
-    String normalizedUserId = userId.getExternalString().split ("_")[1];
-    String normalizedCourseId = courseId.getExternalString().split ("_")[1];
+  public void addSessionActivity (ActivityEvent sessionActivity)
+      throws SessionException {
+    String normalizedUserId =
+      userId.getExternalString().split ("_")[1];
+
+    String normalizedCourseId =
+      courseId.getExternalString().split ("_")[1];
 
     if (!(sessionActivity.getUserPk1().equals (normalizedUserId) &&
           sessionActivity.getCoursePk1().equals (normalizedCourseId) &&

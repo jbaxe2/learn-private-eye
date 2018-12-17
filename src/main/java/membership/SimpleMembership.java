@@ -25,8 +25,8 @@ public class SimpleMembership {
    * The [SimpleMembership] constructor...
    */
   public SimpleMembership (
-    String pk1, String coursePk1, String userPk1, String role, boolean availableInd,
-    Date enrollmentDate, Date lastAccess
+    String pk1, String coursePk1, String userPk1, String role,
+    boolean availableInd, Date enrollmentDate, Date lastAccess
   ) {
     this.pk1 = pk1;
     this.coursePk1 = coursePk1;

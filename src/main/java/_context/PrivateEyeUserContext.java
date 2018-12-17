@@ -35,7 +35,8 @@ public class PrivateEyeUserContext implements PrivateEyeContext {
   /**
    * The [loadUser] method...
    */
-  public void loadContextUserById (UserDbLoader loader) throws PersistenceException {
+  public void loadContextUserById (UserDbLoader loader)
+      throws PersistenceException {
     user = new SimpleUser (loader.loadById (userId));
   }
 

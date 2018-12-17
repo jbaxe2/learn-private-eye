@@ -20,7 +20,7 @@ public class SingleUserSession {
   /**
    * The [SingleUserSession] constructor...
    */
-  SingleUserSession (Id userId, String sessionId) {
+  public SingleUserSession (Id userId, String sessionId) {
     this.userId = userId;
     this.sessionId = sessionId;
 
@@ -30,7 +30,8 @@ public class SingleUserSession {
   /**
    * The [addSessionActivity] method...
    */
-  public void addSessionActivity (ActivityEvent sessionActivity) throws SessionException {
+  public void addSessionActivity (ActivityEvent sessionActivity)
+      throws SessionException {
     String normalizedUserId = userId.getExternalString().split ("_")[1];
 
     if (!(sessionActivity.getUserPk1().equals (normalizedUserId) &&

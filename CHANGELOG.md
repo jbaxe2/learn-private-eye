@@ -1,6 +1,11 @@
 # Learn PrivateEye
 **(learn-private-eye)**
 
+0.10.20181217
+- Slight reformatting of code.
+- Created facade classes for queries.
+- Continued work towards system (non-course) queries for tracking users.
+
 0.10.20181216
 - More work towards system (non-course-based) queries for tracking users.
 

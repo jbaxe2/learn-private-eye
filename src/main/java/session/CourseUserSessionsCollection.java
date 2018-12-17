@@ -1,5 +1,8 @@
 package session;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import blackboard.data.course.Course;
 import blackboard.data.user.User;
 import blackboard.persist.Id;
@@ -22,7 +25,11 @@ public class CourseUserSessionsCollection extends UserSessionsCollection {
    * The [getInstance] static method...
    */
   public static CourseUserSessionsCollection getInstance() {
-    return (CourseUserSessionsCollection)UserSessionsCollection.getInstance();
+    if (null == _instance) {
+      _instance = new CourseUserSessionsCollection();
+    }
+
+    return (CourseUserSessionsCollection)_instance;
   }
 
   /**
@@ -39,11 +46,26 @@ public class CourseUserSessionsCollection extends UserSessionsCollection {
       Id userId = Id.toId (User.DATA_TYPE, sessionEvent.getUserPk1());
 
       userSessions.put (
-        sessionId,
-        new SingleCourseUserSession (courseId, userId, sessionId)
+        sessionId, new SingleCourseUserSession (courseId, userId, sessionId)
       );
     }
 
     userSessions.get (sessionId).addSessionActivity (sessionEvent);
+  }
+
+  /**
+   * The [getCourseSessions] method...
+   */
+  public Map<String, SingleCourseUserSession> getCourseSessions() {
+    Map<String, SingleCourseUserSession> courseSessions = new HashMap<>();
+    Map<String, SingleUserSession> userSessions = getUserSessions();
+
+    for (Object sessionId : userSessions.keySet()) {
+      courseSessions.put (
+        (String)sessionId, (SingleCourseUserSession)(userSessions.get (sessionId))
+      );
+    }
+
+    return courseSessions;
   }
 }

@@ -6,8 +6,7 @@
   blackboard.platform.plugin.PlugInUtil,
   _context.PrivateEyeCourseContext,
   _persistence.PersistenceManager,
-  _persistence.query.builder.CourseSessionQueryBuilder,
-  _persistence.query.executor.CourseSessionQueryExecutor,
+  _persistence.query.CourseSessionQuery,
   activity.ActivityEvent,
   session.SingleCourseUserSession,
   user.SimpleUser" %>
@@ -19,23 +18,16 @@
 <%
   Id courseId = PlugInUtil.getCourseId();
   Id userId = Id.toId (User.DATA_TYPE, request.getParameter ("user_id"));
-
   String sessionId = request.getParameter ("lpe_sid");
-
-  SimpleDateFormat dateFormatter = new SimpleDateFormat ("yyyy/MM/dd hh:mm:ss a z");
-
   UserDbLoader loader = null;
 
   //PrivateEyeCourseContext context = new PrivateEyeCourseContext (courseId);
   PersistenceManager persistenceManager = null;
-
-  CourseSessionQueryBuilder builder = null;
-  CourseSessionQueryExecutor executor = null;
-
+  CourseSessionQuery courseQuery = null;
+  SingleCourseUserSession singleSession = null;
   SimpleUser user = null;
 
-  SingleCourseUserSession singleSession = null;
-
+  SimpleDateFormat dateFormatter = new SimpleDateFormat ("yyyy/MM/dd hh:mm:ss a z");
   List<ActivityEvent> sessionEvents = new ArrayList<>();
 
   try {
@@ -43,15 +35,11 @@
     loader = (UserDbLoader)persistenceManager.retrieveLoader (UserDbLoader.TYPE);
     user = new SimpleUser (loader.loadById (userId));
 
-    builder = new CourseSessionQueryBuilder (
+    courseQuery = new CourseSessionQuery (
       courseId, persistenceManager.getConnection()
     );
 
-    executor = new CourseSessionQueryExecutor (
-      builder.retrieveSessionForUser (userId, sessionId)
-    );
-
-    singleSession = executor.retrieveSessionForUser (courseId, userId, sessionId);
+    singleSession = courseQuery.retrieveSessionForUser (courseId, userId, sessionId);
     sessionEvents = singleSession.getSessionActivities();
   } catch (Exception e) {
     %><bbNG:error exception="<%= e %>" /><%

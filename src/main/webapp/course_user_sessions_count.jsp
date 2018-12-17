@@ -7,8 +7,6 @@
   blackboard.platform.plugin.PlugInUtil,
   _context.PrivateEyeCourseContext,
   _persistence.PersistenceManager,
-  _persistence.query.builder.CourseSessionQueryBuilder,
-  _persistence.query.executor.CourseSessionQueryExecutor,
   session.SimpleCourseUserSessionCount,
   user.SimpleUser" %>
 
@@ -22,27 +20,20 @@
 
   PrivateEyeCourseContext context = new PrivateEyeCourseContext (courseId);
   PersistenceManager persistenceManager = null;
-
-  CourseSessionQueryBuilder builder = null;
-  CourseSessionQueryExecutor executor = null;
+  CourseSessionQuery courseQuery = null;
 
   List<SimpleCourseUserSessionCount> sessionCountList = new ArrayList<>();
 
   try {
     persistenceManager = new PersistenceManager();
     loader = (UserDbLoader)persistenceManager.retrieveLoader (UserDbLoader.TYPE);
-
     context.loadCourseUsers (loader);
 
-    builder = new CourseSessionQueryBuilder (
+    courseQuery = new CourseSessionQuery (
       courseId, persistenceManager.getConnection()
     );
 
-    executor = new CourseSessionQueryExecutor (
-      courseId, builder.retrieveNumberSessionsAllUsers()
-    );
-
-    sessionCountList = executor.retrieveNumberSessionsAllUsers();
+    sessionCountList = courseQuery.retrieveNumberSessionsAllUsers();
   } catch (Exception e) {
     %><bbNG:error exception="<%= e %>" /><%
   }

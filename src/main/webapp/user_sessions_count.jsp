@@ -7,8 +7,7 @@
   blackboard.persist.Id,
   _context.PrivateEyeUserContext,
   _persistence.PersistenceManager,
-  _persistence.query.builder.UserSessionQueryBuilder,
-  _persistence.query.executor.UserSessionQueryExecutor,
+  _persistence.query.UserSessionQuery,
   course.SimpleCourse,
   session.SimpleCourseUserSessionCount,
   user.SimpleUser" %>
@@ -18,16 +17,14 @@
 <bbNG:includedPage authentication="Y" entitlement="system.plugin.MODIFY">
 
 <%
+  String username = request.getParameter ("username");
+
   UserDbLoader userLoader = null;
   CourseDbLoader courseLoader = null;
 
   PrivateEyeUserContext context = new PrivateEyeUserContext (null);
   PersistenceManager persistenceManager = null;
-
-  UserSessionQueryBuilder builder = null;
-  UserSessionQueryExecutor executor = null;
-
-  String username = request.getParameter ("username");
+  UserSessionQuery userQuery = null;
   SimpleUser user = null;
 
   List<SimpleCourseUserSessionCount> sessionCountList = new ArrayList<>();
@@ -41,15 +38,11 @@
 
     user = context.getUser();
 
-    builder = new UserSessionQueryBuilder (
+    userQuery = new UserSessionQuery (
       context.getContextId(), persistenceManager.getConnection()
     );
 
-    executor = new UserSessionQueryExecutor (
-      context.getContextId(), builder.retrieveNumberOfSessions()
-    );
-
-    sessionCountList = executor.retrieveNumberOfSessions();
+    sessionCountList = userQuery.retrieveNumberOfSessions();
   } catch (Exception e) {
     %><bbNG:error exception="<%= e %>" /><%
   }

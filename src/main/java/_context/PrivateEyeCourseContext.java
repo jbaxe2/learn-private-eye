@@ -49,7 +49,8 @@ public class PrivateEyeCourseContext implements PrivateEyeContext {
   /**
    * The [loadCourseUsers] method...
    */
-  public void loadCourseUsers (UserDbLoader loader) throws PersistenceException {
+  public void loadCourseUsers (UserDbLoader loader)
+      throws PersistenceException {
     List<User> users = loader.loadByCourseId (courseId);
 
     for (User user : users) {
@@ -60,7 +61,8 @@ public class PrivateEyeCourseContext implements PrivateEyeContext {
   /**
    * The [loadMemberships] method...
    */
-  public void loadMemberships (CourseMembershipDbLoader loader) throws PersistenceException {
+  public void loadMemberships (CourseMembershipDbLoader loader)
+      throws PersistenceException {
     List<CourseMembership> memberships = loader.loadByCourseId (courseId);
 
     for (CourseMembership membership : memberships) {
