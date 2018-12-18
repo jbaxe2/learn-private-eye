@@ -56,7 +56,7 @@
       className="session.SingleCourseUserSession"
       objectVar="courseUserSession"
       recordCount="<%= sessionsMap.values().size() %>"
-      initialSortCol="sessionId"
+      initialSortCol="timestamp"
       initialSortBy="DESCENDING">
     <%
       String sessionId = courseUserSession.getSessionId();

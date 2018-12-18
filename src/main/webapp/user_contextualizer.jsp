@@ -26,7 +26,13 @@
     if ("sessions".equals (contextualize)) {
       %><%@include file="user_sessions_count.jsp"%><%
     } else if ("system".equals (contextualize)) {
-      %><%@include file="system_user_sessions.jsp"%><%
+      String sessionIdQuery = request.getParameter ("lpe_sid");
+
+      if (null == sessionIdQuery) {
+        %><%@include file="system_user_sessions.jsp"%><%
+      } else {
+        %><%@include file="system_user_session.jsp"%><%
+      }
     } else {
       %><%@ include file="error.jsp"%><%
     }
