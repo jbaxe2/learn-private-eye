@@ -14,6 +14,8 @@ import activity.ActivityEvent;
  * The [CourseUserSessionsCollection] class...
  */
 public class CourseUserSessionsCollection extends UserSessionsCollection {
+  private static CourseUserSessionsCollection _instance;
+
   /**
    * The [CourseUserSessionsCollection] constructor...
    */
@@ -29,7 +31,7 @@ public class CourseUserSessionsCollection extends UserSessionsCollection {
       _instance = new CourseUserSessionsCollection();
     }
 
-    return (CourseUserSessionsCollection)_instance;
+    return _instance;
   }
 
   /**

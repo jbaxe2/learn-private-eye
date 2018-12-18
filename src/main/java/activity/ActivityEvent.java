@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * The [ActivityEvent] class...
  */
-public class ActivityEvent {
+public class ActivityEvent implements Comparable {
   private final String pk1;
 
   private final String userPk1;
@@ -47,6 +47,13 @@ public class ActivityEvent {
     this.data = data;
     this.timestamp = timestamp;
     this.sessionId = sessionId;
+  }
+
+  /**
+   * The [compareTo] method...
+   */
+  public int compareTo (Object other) {
+    return timestamp.compareTo (((ActivityEvent)other).getTimestamp());
   }
 
   public String getPk1() {

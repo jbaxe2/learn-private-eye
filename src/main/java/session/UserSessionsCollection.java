@@ -14,7 +14,7 @@ import activity.ActivityEvent;
 public class UserSessionsCollection {
   Map<String, SingleUserSession> userSessions;
 
-  static UserSessionsCollection _instance;
+  private static UserSessionsCollection _instance;
 
   /**
    * The [UserSessionsCollection] private constructor...

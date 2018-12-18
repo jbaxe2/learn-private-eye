@@ -18,6 +18,7 @@
 
 <%
   String username = request.getParameter ("username");
+  String userId = request.getParameter ("user_id");
 
   UserDbLoader userLoader = null;
   CourseDbLoader courseLoader = null;
@@ -35,7 +36,12 @@
     userLoader = (UserDbLoader)persistenceManager.retrieveLoader (UserDbLoader.TYPE);
     courseLoader = (CourseDbLoader)persistenceManager.retrieveLoader (CourseDbLoader.TYPE);
 
-    context.loadContextUserByUsername (userLoader, username);
+    if (!username.isEmpty()) {
+      context.loadContextUserByUsername (userLoader, username);
+    } else if (!userId.isEmpty()) {
+      context = new PrivateEyeUserContext (Id.toId (User.DATA_TYPE, userId));
+      context.loadContextUserById (userLoader);
+    }
 
     user = context.getUser();
 
@@ -50,7 +56,7 @@
   }
 %>
 
-  <p style="background-color: grey; margin-bottom: 10px; padding: 8px; font-size: medium;">
+  <p style="background-color: lightgrey; margin-bottom: 10px; padding: 8px; font-size: medium;">
     Number of successful login attempts: &nbsp;
     <strong><a href="index.jsp?context=user&contextualize=logins&user_id=<%= user.getPk1()
         %>&startIndex=0"><%=

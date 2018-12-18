@@ -4,7 +4,6 @@
   blackboard.persist.user.UserDbLoader,
   blackboard.persist.Id,
   blackboard.platform.plugin.PlugInUtil,
-  _context.PrivateEyeCourseContext,
   _persistence.PersistenceManager,
   _persistence.query.CourseSessionQuery,
   activity.ActivityEvent,
@@ -21,7 +20,6 @@
   String sessionId = request.getParameter ("lpe_sid");
   UserDbLoader loader = null;
 
-  //PrivateEyeCourseContext context = new PrivateEyeCourseContext (courseId);
   PersistenceManager persistenceManager = null;
   CourseSessionQuery courseQuery = null;
   SingleCourseUserSession singleSession = null;

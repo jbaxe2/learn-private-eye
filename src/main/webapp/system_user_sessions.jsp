@@ -5,7 +5,6 @@
   blackboard.data.user.User,
   blackboard.persist.user.UserDbLoader,
   blackboard.persist.Id,
-  _context.PrivateEyeUserContext,
   _persistence.PersistenceManager,
   _persistence.query.UserSessionQuery,
   session.SingleUserSession,
@@ -20,7 +19,6 @@
   Id userId = Id.toId (User.DATA_TYPE, request.getParameter ("user_id"));
   UserDbLoader loader = null;
 
-  PrivateEyeUserContext context = new PrivateEyeUserContext (userId);
   PersistenceManager persistenceManager = null;
   UserSessionQuery userQuery = null;
   UserSessionsCollection userSessions = null;
