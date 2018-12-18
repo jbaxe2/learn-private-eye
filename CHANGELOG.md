@@ -1,6 +1,11 @@
 # Learn PrivateEye
 **(learn-private-eye)**
 
+0.10.20181218
+- Minor refactoring.
+- Start of creating user login attempt queries.
+- Start of creating bread crumb navigation controls.
+
 0.10.20181217
 - Slight reformatting of code.
 - Created facade classes for queries.

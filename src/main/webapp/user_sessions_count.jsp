@@ -25,6 +25,7 @@
   PrivateEyeUserContext context = new PrivateEyeUserContext (null);
   PersistenceManager persistenceManager = null;
   UserSessionQuery userQuery = null;
+  UserSessionsCollection loginSessions = null;
   SimpleUser user = null;
 
   List<SimpleCourseUserSessionCount> sessionCountList = new ArrayList<>();
@@ -42,11 +43,20 @@
       context.getContextId(), persistenceManager.getConnection()
     );
 
+    loginSessions = userQuery.retrieveSuccessfulLogins();
     sessionCountList = userQuery.retrieveNumberOfSessions();
   } catch (Exception e) {
     %><bbNG:error exception="<%= e %>" /><%
   }
 %>
+
+  <p style="background-color: grey; margin-bottom: 10px; padding: 8px; font-size: medium;">
+    Number of successful login attempts: &nbsp;
+    <strong><a href="index.jsp?context=user&contextualize=logins&user_id=<%= user.getPk1()
+        %>&startIndex=0"><%=
+      loginSessions.getUserSessions().size()
+    %></a></strong>
+  </p><br>
 
   <p style="margin-bottom: 8px; font-size: medium; font-weight: 600; text-decoration: underline;">
     Tracked session count (by course) for

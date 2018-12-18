@@ -34,6 +34,14 @@ public class UserSessionQueryExecutor
   }
 
   /**
+   * The [retrieveSuccessfulLogins] method...
+   */
+  public UserSessionsCollection retrieveSuccessfulLogins()
+      throws SQLException, SessionException {
+    return _buildSessionsCollection();
+  }
+
+  /**
    * The [retrieveNumberOfSessions] method...
    */
   public List<SimpleCourseUserSessionCount> retrieveNumberOfSessions()
@@ -46,18 +54,7 @@ public class UserSessionQueryExecutor
    */
   public UserSessionsCollection retrieveSystemSessions()
       throws SQLException, SessionException {
-    UserSessionsCollection sessionsCollection =
-      UserSessionsCollection.getInstance();
-
-    ResultSet sessionsResult = preparedStatement.executeQuery();
-
-    while (sessionsResult.next()) {
-      sessionsCollection.pushSessionEventToCollection (
-        _createActivityEvent (sessionsResult)
-      );
-    }
-
-    return sessionsCollection;
+    return _buildSessionsCollection();
   }
 
   /**
@@ -74,5 +71,24 @@ public class UserSessionQueryExecutor
     }
 
     return userSession;
+  }
+
+  /**
+   * The [_buildSessionsCollection] method...
+   */
+  private UserSessionsCollection _buildSessionsCollection()
+      throws SQLException, SessionException {
+    UserSessionsCollection sessionsCollection =
+        UserSessionsCollection.getInstance();
+
+    ResultSet sessionsResult = preparedStatement.executeQuery();
+
+    while (sessionsResult.next()) {
+      sessionsCollection.pushSessionEventToCollection (
+        _createActivityEvent (sessionsResult)
+      );
+    }
+
+    return sessionsCollection;
   }
 }

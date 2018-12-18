@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import activity.EventType;
 import blackboard.persist.Id;
 
 /**
@@ -22,6 +23,15 @@ public class UserSessionQueryBuilder implements QueryBuilder {
     this.connection = connection;
   }
 
+  /**
+   * The [retrieveSuccessfulLogins] method...
+   */
+  public PreparedStatement retrieveSuccessfulLogins() throws SQLException {
+    String statement = "SELECT * FROM activity_accumulator WHERE user_pk1 = ? " +
+      "AND event_type = '" + EventType.LOGIN_ATTEMPT + "' AND data = 'Login succeeded.'";
+
+    return _createUserSessionStatement (statement);
+  }
   /**
    * The [retrieveNumberOfSessions] method...
    */

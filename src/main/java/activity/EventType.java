@@ -3,7 +3,7 @@ package activity;
 /**
  * The [EventType] class...
  */
-class EventType {
+public class EventType {
   public static final String COURSE_ACCESS = "COURSE_ACCESS";
 
   public static final String LOGIN_ATTEMPT = "LOGIN_ATTEMPT";

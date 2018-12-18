@@ -2,8 +2,6 @@ package _persistence;
 
 import java.sql.Connection;
 
-import blackboard.admin.persist.course.impl.EnrollmentDbLoader;
-
 import blackboard.db.BbDatabase;
 import blackboard.db.ConnectionManager;
 import blackboard.db.ConnectionNotAvailableException;
@@ -49,11 +47,11 @@ public class PersistenceManager {
         loader = bbPersistenceManager.getLoader (UserDbLoader.TYPE);
         break;
       case CourseMembershipDbLoader.TYPE:
-        loader = bbPersistenceManager.getLoader (EnrollmentDbLoader.TYPE);
+        loader = bbPersistenceManager.getLoader (CourseMembershipDbLoader.TYPE);
         break;
       default:
         throw new PersistenceException (
-            "The loader type (" + type + ") is not supported."
+          "The loader type (" + type + ") is not supported."
         );
     }
 

@@ -23,18 +23,27 @@
           url="index.jsp?context=user&contextualize=sessions&startIndex=0" />
     </bbNG:form><%
   } else {
-    if ("sessions".equals (contextualize)) {
-      %><%@include file="user_sessions_count.jsp"%><%
-    } else if ("system".equals (contextualize)) {
-      String sessionIdQuery = request.getParameter ("lpe_sid");
+    switch (contextualize) {
+      case "sessions":
+        %><%@include file="user_sessions_count.jsp"%><%
 
-      if (null == sessionIdQuery) {
-        %><%@include file="system_user_sessions.jsp"%><%
-      } else {
-        %><%@include file="system_user_session.jsp"%><%
-      }
-    } else {
-      %><%@ include file="error.jsp"%><%
+        break;
+      case "system":
+        String sessionIdQuery = request.getParameter ("lpe_sid");
+
+        if (null == sessionIdQuery) {
+          %><%@include file="system_user_sessions.jsp"%><%
+        } else {
+          %><%@include file="system_user_session.jsp"%><%
+        }
+
+        break;
+      case "logins":
+        %><%@include file="successful_user_logins.jsp"%><%
+
+        break;
+      default:
+        %><%@ include file="error.jsp"%><%
     }
   }
 %>

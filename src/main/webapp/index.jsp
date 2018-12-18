@@ -4,18 +4,22 @@
 
 <%@ taglib prefix="bbNG" uri="/bbNG" %>
 
+<%
+  String contextQuery = request.getParameter ("context");
+
+  if (null == contextQuery || contextQuery.isEmpty()) {
+    contextQuery = "course";
+  }
+%>
+
 <bbNG:learningSystemPage title="Learn PrivateEye" authentication="Y">
   <bbNG:pageHeader>
     <bbNG:pageTitleBar title="Learn PrivateEye" />
+
+    <%@include file="bread_crumbs.jsp"%>
   </bbNG:pageHeader>
 
   <%
-    String contextQuery = request.getParameter ("context");
-
-    if (null == contextQuery || contextQuery.isEmpty ()) {
-      contextQuery = "course";
-    }
-
     try {
       if ("course".equals (contextQuery)) {
         String userIdQuery = request.getParameter ("user_id");
@@ -40,4 +44,5 @@
       %><bbNG:error exception="<%= e %>" /><%
     }
   %>
+
 </bbNG:learningSystemPage>

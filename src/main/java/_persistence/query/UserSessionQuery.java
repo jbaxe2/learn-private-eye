@@ -37,6 +37,17 @@ public class UserSessionQuery {
   }
 
   /**
+   * The [retrieveSuccessfulLogins] method...
+   */
+  public UserSessionsCollection retrieveSuccessfulLogins()
+      throws SQLException, SessionException {
+    PreparedStatement preparedStatement = builder.retrieveSuccessfulLogins();
+    executor = new UserSessionQueryExecutor (userId, preparedStatement);
+
+    return executor.retrieveSuccessfulLogins();
+  }
+
+  /**
    * The [retrieveNumberOfSessions] method...
    */
   public List<SimpleCourseUserSessionCount> retrieveNumberOfSessions()
