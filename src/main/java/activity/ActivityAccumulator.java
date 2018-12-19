@@ -1,6 +1,7 @@
 package activity;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -25,7 +26,23 @@ public class ActivityAccumulator {
     }
   }
 
+  /**
+   * The [getEventsCount] method...
+   */
+  public int getEventsCount() {
+    return activityEvents.size();
+  }
+
   public List<ActivityEvent> getActivityEvents() {
+    sortActivities();
+
     return new ArrayList<>(activityEvents);
+  }
+
+  /**
+   * The [sortActivities] method...
+   */
+  private void sortActivities() {
+    activityEvents.sort (Collections.reverseOrder());
   }
 }

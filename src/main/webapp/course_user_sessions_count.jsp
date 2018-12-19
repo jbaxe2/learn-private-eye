@@ -6,6 +6,7 @@
   blackboard.persist.Id,
   blackboard.platform.plugin.PlugInUtil,
   _context.PrivateEyeCourseContext,
+  _persistence.query.CourseSessionQuery,
   _persistence.PersistenceManager,
   session.SimpleCourseUserSessionCount,
   user.SimpleUser" %>
@@ -49,9 +50,15 @@
       objectVar="sessionCount"
       recordCount="<%= sessionCountList.size() %>">
   <%
-    SimpleUser currentUser = context.getUser (
-      Id.toId (User.DATA_TYPE, sessionCount.getUserPk1())
-    );
+    SimpleUser currentUser = null;
+
+    try {
+      currentUser = context.getUser(
+        Id.toId(User.DATA_TYPE, sessionCount.getUserPk1())
+      );
+    } catch (Exception e) {
+      %><bbNG:error exception="<%= e %>" /><%
+    }
   %>
     <bbNG:listElement name="username" label="Username" isRowHeader="true">
       <a href="index.jsp?context=course&course_id=<%= courseId.getExternalString()

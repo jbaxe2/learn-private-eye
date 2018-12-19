@@ -55,9 +55,7 @@
       collection="<%= sessionsMap.values() %>"
       className="session.SingleCourseUserSession"
       objectVar="courseUserSession"
-      recordCount="<%= sessionsMap.values().size() %>"
-      initialSortCol="timestamp"
-      initialSortBy="DESCENDING">
+      recordCount="<%= sessionsMap.values().size() %>">
     <%
       String sessionId = courseUserSession.getSessionId();
     %>
@@ -71,7 +69,9 @@
     <bbNG:listElement name="timestamp" label="Date &amp; Timestamp">
       <%=
         dateFormatter.format (
-          courseUserSession.getSessionActivities().get (0).getTimestamp()
+          courseUserSession.getSessionActivities().get (
+            courseUserSession.getSessionSize() - 1
+          ).getTimestamp()
         )
       %>
     </bbNG:listElement>

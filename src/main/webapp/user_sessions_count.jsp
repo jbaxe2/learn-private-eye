@@ -23,7 +23,7 @@
   UserDbLoader userLoader = null;
   CourseDbLoader courseLoader = null;
 
-  PrivateEyeUserContext context = new PrivateEyeUserContext (null);
+  PrivateEyeUserContext context = null;
   PersistenceManager persistenceManager = null;
   UserSessionQuery userQuery = null;
   UserSessionsCollection loginSessions = null;
@@ -37,6 +37,7 @@
     courseLoader = (CourseDbLoader)persistenceManager.retrieveLoader (CourseDbLoader.TYPE);
 
     if (!username.isEmpty()) {
+      context = new PrivateEyeUserContext (null);
       context.loadContextUserByUsername (userLoader, username);
     } else if (!userId.isEmpty()) {
       context = new PrivateEyeUserContext (Id.toId (User.DATA_TYPE, userId));
@@ -82,7 +83,7 @@
       try {
         if (null != sessionCount.getCoursePk1()) {
           currentCourseId = Id.toId (Course.DATA_TYPE, sessionCount.getCoursePk1());
-          currentCourse = context.loadCourseForContext(courseLoader, currentCourseId);
+          currentCourse = context.loadCourseForContext (courseLoader, currentCourseId);
         }
       } catch (Exception e) {
         %><bbNG:error exception="<%= e %>" /><%

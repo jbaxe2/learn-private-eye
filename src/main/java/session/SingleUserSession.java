@@ -10,7 +10,7 @@ import activity.ActivityEvent;
 /**
  * The [SingleUserSession] class...
  */
-public class SingleUserSession {
+public class SingleUserSession implements Comparable {
   protected final Id userId;
 
   protected final String sessionId;
@@ -45,10 +45,25 @@ public class SingleUserSession {
   }
 
   /**
+   * The [compareTo] method...
+   */
+  @Override
+  public int compareTo (Object other) {
+    return sessionId.compareTo (((SingleUserSession) other).getSessionId());
+  }
+
+  /**
    * The [getSessionActivities] method...
    */
   public List<ActivityEvent> getSessionActivities() {
     return sessionAccumulator.getSessionActivities();
+  }
+
+  /**
+   * The [getSessionSize] method...
+   */
+  public int getSessionSize() {
+    return sessionAccumulator.getSessionSize();
   }
 
   public Id getUserId() {

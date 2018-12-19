@@ -48,9 +48,7 @@
       collection="<%= loginAttempts.values() %>"
       className="session.SingleUserSession"
       objectVar="loginAttempt"
-      recordCount="<%= loginAttempts.values().size() %>"
-      initialSortCol="timestamp"
-      initialSortBy="DESCENDING">
+      recordCount="<%= loginAttempts.values().size() %>">
     <%
       String sessionId = loginAttempt.getSessionId();
     %>
@@ -64,7 +62,9 @@
     <bbNG:listElement name="timestamp" label="Date &amp; Timestamp">
       <%=
         dateFormatter.format (
-          loginAttempt.getSessionActivities().get (0).getTimestamp()
+          loginAttempt.getSessionActivities().get (
+            loginAttempt.getSessionSize() - 1
+          ).getTimestamp()
         )
       %>
     </bbNG:listElement>

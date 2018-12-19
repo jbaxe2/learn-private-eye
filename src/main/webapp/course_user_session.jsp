@@ -53,9 +53,7 @@
       collection="<%= sessionEvents %>"
       className="activity.ActivityEvent"
       objectVar="sessionEvent"
-      recordCount="<%= sessionEvents.size() %>"
-      initialSortCol="timestamp"
-      initialSortBy="DESCENDING">
+      recordCount="<%= sessionEvents.size() %>">
     <bbNG:listElement name="timestamp" label="Date &amp; Timestamp" isRowHeader="true">
       <%= dateFormatter.format (sessionEvent.getTimestamp()) %>
     </bbNG:listElement>

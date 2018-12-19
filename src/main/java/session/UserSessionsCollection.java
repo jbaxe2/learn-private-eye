@@ -1,7 +1,9 @@
 package session;
 
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.Map;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import blackboard.data.user.User;
 import blackboard.persist.Id;
@@ -20,7 +22,7 @@ public class UserSessionsCollection {
    * The [UserSessionsCollection] private constructor...
    */
   UserSessionsCollection() {
-    userSessions = new HashMap<>();
+    userSessions = new TreeMap<>(Collections.reverseOrder());
   }
 
   /**
@@ -37,9 +39,8 @@ public class UserSessionsCollection {
   /**
    * The [pushSessionEventToCollection] method...
    */
-  public void pushSessionEventToCollection (
-    ActivityEvent sessionEvent
-  ) throws SessionException {
+  public void pushSessionEventToCollection (ActivityEvent sessionEvent)
+      throws SessionException {
     String sessionId = sessionEvent.getSessionId();
 
     if (!userSessions.containsKey (sessionId)) {
@@ -62,6 +63,6 @@ public class UserSessionsCollection {
   }
 
   public Map<String, SingleUserSession> getUserSessions() {
-    return new HashMap<>(userSessions);
+    return new TreeMap<>((SortedMap<String, SingleUserSession>)userSessions);
   }
 }

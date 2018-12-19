@@ -10,7 +10,7 @@
   <groupId>wsu.blackboard</groupId>
   <artifactId>learn-private-eye</artifactId>
   <packaging>war</packaging>
-  <version>0.10.20181218</version>
+  <version>0.10.20181219</version>
 
   <!-- Repositories -->
   <repositories>

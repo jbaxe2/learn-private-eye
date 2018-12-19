@@ -44,6 +44,13 @@ public class SessionAccumulator {
     return activityAccumulator.getActivityEvents();
   }
 
+  /**
+   * The [getSessionSize] method...
+   */
+  public int getSessionSize() {
+    return activityAccumulator.getEventsCount();
+  }
+
   public String getSessionId() {
     return sessionId;
   }

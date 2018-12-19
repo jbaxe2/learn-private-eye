@@ -1,6 +1,10 @@
 # Learn PrivateEye
 **(learn-private-eye)**
 
+0.10.20181219
+- Provided sorting mechanisms for (session) activity events.
+- Continued work with bread crumb navigation controls.
+
 0.10.20181218
 - Minor refactoring.
 - Start of creating user login attempt queries.
@@ -23,7 +27,7 @@
 
 0.10.20181207
 - Changed versioning scheme (increments previous deployed implementation).
-  - Major, minor, patch (dated)
+  - Major, minor, patch (dated).
 - Various refactorings to resolve some errors.
 - Minor refactorings for updating typos and the like.
 

@@ -1,7 +1,8 @@
 package session;
 
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.Map;
+import java.util.TreeMap;
 
 import blackboard.data.course.Course;
 import blackboard.data.user.User;
@@ -59,7 +60,9 @@ public class CourseUserSessionsCollection extends UserSessionsCollection {
    * The [getCourseSessions] method...
    */
   public Map<String, SingleCourseUserSession> getCourseSessions() {
-    Map<String, SingleCourseUserSession> courseSessions = new HashMap<>();
+    Map<String, SingleCourseUserSession> courseSessions =
+      new TreeMap<>(Collections.reverseOrder());
+
     Map<String, SingleUserSession> userSessions = getUserSessions();
 
     for (Object sessionId : userSessions.keySet()) {

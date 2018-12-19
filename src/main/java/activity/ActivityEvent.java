@@ -52,6 +52,7 @@ public class ActivityEvent implements Comparable {
   /**
    * The [compareTo] method...
    */
+  @Override
   public int compareTo (Object other) {
     return timestamp.compareTo (((ActivityEvent)other).getTimestamp());
   }
