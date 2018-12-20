@@ -1,6 +1,10 @@
 # Learn PrivateEye
 **(learn-private-eye)**
 
+0.10.20181220
+- Continued work with user context bread crumb navigation controls.
+  - Resolved user (non-course and login attempts) bread crumb navigation.
+
 0.10.20181219
 - Provided sorting mechanisms for (session) activity events.
 - Continued work with bread crumb navigation controls.

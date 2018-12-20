@@ -36,10 +36,10 @@
     userLoader = (UserDbLoader)persistenceManager.retrieveLoader (UserDbLoader.TYPE);
     courseLoader = (CourseDbLoader)persistenceManager.retrieveLoader (CourseDbLoader.TYPE);
 
-    if (!username.isEmpty()) {
+    if (!((null == username) || username.isEmpty())) {
       context = new PrivateEyeUserContext (null);
       context.loadContextUserByUsername (userLoader, username);
-    } else if (!userId.isEmpty()) {
+    } else if (!((null == userId) || userId.isEmpty())) {
       context = new PrivateEyeUserContext (Id.toId (User.DATA_TYPE, userId));
       context.loadContextUserById (userLoader);
     }

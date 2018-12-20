@@ -54,12 +54,12 @@
     %>
     <bbNG:listElement name="sessionId" label="Session ID" isRowHeader="true">
       <a href="index.jsp?context=user&contextualize=system&user_id=<%=
-          user.getPk1() %>&lpe_sid=<%= sessionId %>&startIndex=0">
+          user.getPk1() %>&lpe_sid=<%= sessionId %>&startIndex=0&forContextualize=logins">
         <%= sessionId %>
       </a>
     </bbNG:listElement>
 
-    <bbNG:listElement name="timestamp" label="Date &amp; Timestamp">
+    <bbNG:listElement name="timestamp" label="Login Date &amp; Timestamp">
       <%=
         dateFormatter.format (
           loginAttempt.getSessionActivities().get (
