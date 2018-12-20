@@ -78,8 +78,7 @@ public class UserSessionQueryExecutor
    */
   private UserSessionsCollection _buildSessionsCollection()
       throws SQLException, SessionException {
-    UserSessionsCollection sessionsCollection =
-        UserSessionsCollection.getInstance();
+    UserSessionsCollection sessionsCollection = new UserSessionsCollection();
 
     ResultSet sessionsResult = preparedStatement.executeQuery();
 

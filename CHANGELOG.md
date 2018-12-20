@@ -4,6 +4,7 @@
 0.10.20181220
 - Continued work with user context bread crumb navigation controls.
   - Resolved user (non-course and login attempts) bread crumb navigation.
+- Changed the session collections so they are no longer singletons.
 
 0.10.20181219
 - Provided sorting mechanisms for (session) activity events.

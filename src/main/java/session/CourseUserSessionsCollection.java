@@ -15,24 +15,11 @@ import activity.ActivityEvent;
  * The [CourseUserSessionsCollection] class...
  */
 public class CourseUserSessionsCollection extends UserSessionsCollection {
-  private static CourseUserSessionsCollection _instance;
-
   /**
    * The [CourseUserSessionsCollection] constructor...
    */
-  private CourseUserSessionsCollection() {
+  public CourseUserSessionsCollection() {
     super();
-  }
-
-  /**
-   * The [getInstance] static method...
-   */
-  public static CourseUserSessionsCollection getInstance() {
-    if (null == _instance) {
-      _instance = new CourseUserSessionsCollection();
-    }
-
-    return _instance;
   }
 
   /**

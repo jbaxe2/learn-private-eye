@@ -10,30 +10,18 @@ import blackboard.persist.Id;
 
 import _error.SessionException;
 import activity.ActivityEvent;
+
 /**
  * The [UserSessionsCollection] class...
  */
 public class UserSessionsCollection {
   Map<String, SingleUserSession> userSessions;
 
-  private static UserSessionsCollection _instance;
-
   /**
    * The [UserSessionsCollection] private constructor...
    */
-  UserSessionsCollection() {
+  public UserSessionsCollection() {
     userSessions = new TreeMap<>(Collections.reverseOrder());
-  }
-
-  /**
-   * The [getInstance] method...
-   */
-  public static UserSessionsCollection getInstance() {
-    if (null == _instance) {
-      _instance = new UserSessionsCollection();
-    }
-
-    return _instance;
   }
 
   /**

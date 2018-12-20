@@ -44,7 +44,7 @@ public class CourseSessionQueryExecutor
     ResultSet sessionsResult = preparedStatement.executeQuery();
 
     CourseUserSessionsCollection sessionsCollection =
-      CourseUserSessionsCollection.getInstance();
+      new CourseUserSessionsCollection();
 
     while (sessionsResult.next()) {
       sessionsCollection.pushSessionEventToCollection (

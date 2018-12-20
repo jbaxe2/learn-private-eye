@@ -20,10 +20,10 @@
     ; // Do nothing; we may be in user context.
   }
 
-  String bcEnvironment = "course".equals (contextQuery) ? "COURSE" : "SYS_ADMIN";
+  //String bcEnvironment = "course".equals (contextQuery) ? "CTRL_PANEL" : "PORTAL";
 %>
 
-  <bbNG:breadcrumbBar environment="<%= bcEnvironment %>">
+  <bbNG:breadcrumbBar>
     <bbNG:breadcrumb href="<%= href %>">
       <%
         if ("course".equals (contextQuery)) {
