@@ -6,17 +6,14 @@
   String bcUserId = request.getParameter ("user_id");
   String bcCourseId = request.getParameter ("course_id");
   //String bcContextualize = request.getParameter ("contextualize");
-  //String bcSessionId = request.getParameter ("lpe_sid");
+  String bcSessionId = request.getParameter ("lpe_sid");
 
-  String href = "index.jsp?context=" + contextQuery;
+  String baseHref = "index.jsp?context=" + contextQuery + "&startIndex=0";
+  String href = baseHref;
 
   try {
     if (!((null == bcCourseId)) || bcCourseId.isEmpty()) {
-      href += "&course_id=" + bcCourseId;
-    }
-
-    if (!((null == bcUserId)) || bcUserId.isEmpty()) {
-      href += "&user_id=" + bcCourseId;
+      href = baseHref + "&course_id=" + bcCourseId;
     }
   } catch (Exception e) {
     ; // Do nothing.
@@ -26,17 +23,28 @@
 %>
 
   <bbNG:breadcrumbBar environment="<%= bcEnvironment %>">
-    <bbNG:breadcrumb href="<%= href %>">Learn PrivateEye</bbNG:breadcrumb>
+    <bbNG:breadcrumb href="<%= href %>">Enrollments' Session Counts</bbNG:breadcrumb>
 
     <%
       if ("course".equals (contextQuery)) {
-        %><bbNG:breadcrumb href="<%= href %>">Course Sessions</bbNG:breadcrumb><%
-
         if (!((null == bcUserId) || bcUserId.isEmpty())) {
-          ;
+          href = href + "&user_id=" + bcUserId;
+
+          %><bbNG:breadcrumb href="<%= href %>">
+            Enrollment Sessions
+          </bbNG:breadcrumb><%
+
+          if (!((null == bcSessionId) || bcSessionId.isEmpty())) {
+            href = baseHref + "&course_id=" + bcCourseId +
+              "&user_id=" + bcUserId;
+
+            %><bbNG:breadcrumb href="<%= href %>">
+              Session #<%= bcSessionId %>
+            </bbNG:breadcrumb><%
+          }
         }
       } else if ("user".equals (contextQuery)) {
-        href += "&contextualize=sessions";
+        href = baseHref + "&contextualize=sessions";
 
         %><bbNG:breadcrumb href="<%= href %>">System Sessions</bbNG:breadcrumb><%
       }

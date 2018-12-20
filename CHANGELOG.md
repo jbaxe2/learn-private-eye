@@ -4,6 +4,7 @@
 0.10.20181219
 - Provided sorting mechanisms for (session) activity events.
 - Continued work with bread crumb navigation controls.
+  - Resolved course bread crumb navigation controls.
 
 0.10.20181218
 - Minor refactoring.
