@@ -23,7 +23,15 @@
 %>
 
   <bbNG:breadcrumbBar environment="<%= bcEnvironment %>">
-    <bbNG:breadcrumb href="<%= href %>">Enrollments' Session Counts</bbNG:breadcrumb>
+    <bbNG:breadcrumb href="<%= href %>">
+      <%
+        if ("course".equals (contextQuery)) {
+          %>Enrollments' Session Counts<%
+        } else if ("user".equals (contextQuery)) {
+          %>Username Injector<%
+        }
+      %>
+    </bbNG:breadcrumb>
 
     <%
       if ("course".equals (contextQuery)) {
@@ -46,7 +54,7 @@
       } else if ("user".equals (contextQuery)) {
         href = baseHref + "&contextualize=sessions";
 
-        %><bbNG:breadcrumb href="<%= href %>">System Sessions</bbNG:breadcrumb><%
+        %><bbNG:breadcrumb href="<%= href %>">User Session Counts</bbNG:breadcrumb><%
       }
     %>
 
