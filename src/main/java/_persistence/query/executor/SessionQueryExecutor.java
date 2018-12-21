@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import blackboard.persist.Id;
+
 import activity.ActivityEvent;
 import session.SimpleCourseUserSessionCount;
 
@@ -18,14 +20,26 @@ abstract class SessionQueryExecutor {
    * The [retrieveNumberOfSessions] method...
    */
   List<SimpleCourseUserSessionCount> retrieveNumberOfSessions (
-    PreparedStatement preparedStatement
+    PreparedStatement preparedStatement, Id courseId
   ) throws SQLException {
     ResultSet countResult = preparedStatement.executeQuery();
     List<SimpleCourseUserSessionCount> sessionCountList = new ArrayList<>();
 
     while (countResult.next()) {
+      String courseIdStr = null;
+
+      if (null != courseId) {
+        courseIdStr = courseId.getExternalString();
+      }
+
+      try {
+        courseIdStr = countResult.getString ("course_pk1");
+      } catch (SQLException e) {
+        // Some query results will not contain a course ID.
+      }
+
       SimpleCourseUserSessionCount sessionCount = new SimpleCourseUserSessionCount (
-        countResult.getString ("course_pk1"),
+        courseIdStr,
         countResult.getString ("user_pk1"),
         countResult.getInt ("session_count")
       );

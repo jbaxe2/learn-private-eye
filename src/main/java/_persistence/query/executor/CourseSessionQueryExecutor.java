@@ -31,9 +31,10 @@ public class CourseSessionQueryExecutor
   /**
    * The [retrieveNumberSessionsAllUsers] method...
    */
-  public List<SimpleCourseUserSessionCount> retrieveNumberSessionsAllUsers()
-      throws SQLException {
-    return super.retrieveNumberOfSessions (preparedStatement);
+  public List<SimpleCourseUserSessionCount> retrieveNumberSessionsAllUsers (
+    Id courseId
+  ) throws SQLException {
+    return super.retrieveNumberOfSessions (preparedStatement, courseId);
   }
 
   /**

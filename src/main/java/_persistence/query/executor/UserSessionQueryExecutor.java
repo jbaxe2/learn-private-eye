@@ -46,7 +46,7 @@ public class UserSessionQueryExecutor
    */
   public List<SimpleCourseUserSessionCount> retrieveNumberOfSessions()
       throws SQLException {
-    return super.retrieveNumberOfSessions (preparedStatement);
+    return super.retrieveNumberOfSessions (preparedStatement, null);
   }
 
   /**

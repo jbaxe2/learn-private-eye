@@ -21,6 +21,8 @@ import session.SingleCourseUserSession;
  * The [CourseSessionQuery] class...
  */
 public class CourseSessionQuery {
+  private Id courseId;
+
   private CourseSessionQueryBuilder builder;
 
   private CourseSessionQueryExecutor executor;
@@ -30,6 +32,8 @@ public class CourseSessionQuery {
    */
   public CourseSessionQuery (Id courseId, Connection connection) {
     builder = new CourseSessionQueryBuilder (courseId, connection);
+
+    this.courseId = courseId;
   }
 
   /**
@@ -40,7 +44,7 @@ public class CourseSessionQuery {
     PreparedStatement preparedStatement = builder.retrieveNumberSessionsAllUsers();
     executor = new CourseSessionQueryExecutor (preparedStatement);
 
-    return executor.retrieveNumberSessionsAllUsers();
+    return executor.retrieveNumberSessionsAllUsers (courseId);
   }
 
   /**

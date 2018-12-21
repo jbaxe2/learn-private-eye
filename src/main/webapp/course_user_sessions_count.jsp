@@ -38,49 +38,66 @@
   } catch (Exception e) {
     %><bbNG:error exception="<%= e %>" /><%
   }
+
+  if (sessionCountList.isEmpty()) {
+    %><p>
+      Attempting to pull the list of session counts for the enrollments did not
+      produce any results, or resulted in an error.
+    </p><%
+  } else {
 %>
 
-  <p style="margin-bottom: 8px; font-size: medium; font-weight: 600; text-decoration: underline;">
-    Tracked list of users for this course (<%= courseId.getExternalString() %>):
-  </p>
+    <p style="margin-bottom: 8px; font-size: medium; font-weight: 600; text-decoration: underline;">
+      Tracked list of users for this course (<%= courseId.getExternalString() %>):
+    </p>
 
-  <bbNG:pagedList
-      collection="<%= sessionCountList %>"
-      className="session.SimpleCourseUserSessionCount"
-      objectVar="sessionCount"
-      recordCount="<%= sessionCountList.size() %>">
-  <%
-    SimpleUser currentUser = null;
+    <bbNG:pagedList
+        collection="<%= sessionCountList %>"
+        className="session.SimpleCourseUserSessionCount"
+        objectVar="sessionCount"
+        recordCount="<%= sessionCountList.size() %>">
+    <%
+      SimpleUser currentUser = null;
 
-    try {
-      currentUser = context.getUser(
-        Id.toId(User.DATA_TYPE, sessionCount.getUserPk1())
-      );
-    } catch (Exception e) {
-      %><bbNG:error exception="<%= e %>" /><%
-    }
-  %>
-    <bbNG:listElement name="username" label="Username" isRowHeader="true">
-      <a href="index.jsp?context=course&course_id=<%= courseId.getExternalString()
-          %>&user_id=<%= currentUser.getPk1() %>&startIndex=0">
-        <%= currentUser.getUserId() %>
-      </a>
-    </bbNG:listElement>
+      try {
+        currentUser = context.getUser (
+          Id.toId (User.DATA_TYPE, sessionCount.getUserPk1())
+        );
+      } catch (Exception e) {
+        %><bbNG:error exception="<%= e %>" /><%
+      }
 
-    <bbNG:listElement name="firstName" label="First Name">
-      <%= currentUser.getFirstName() %>
-    </bbNG:listElement>
+      if (null == currentUser) {
+        %><p>No current user to provide session count details.</p><%
+      } else {
+    %>
+        <bbNG:listElement name="username" label="Username" isRowHeader="true">
+          <a href="index.jsp?context=course&course_id=<%= courseId.getExternalString()
+              %>&user_id=<%= currentUser.getPk1() %>&startIndex=0">
+            <%= currentUser.getUserId() %>
+          </a>
+        </bbNG:listElement>
 
-    <bbNG:listElement name="lastName" label="Last Name">
-      <%= currentUser.getLastName() %>
-    </bbNG:listElement>
+        <bbNG:listElement name="firstName" label="First Name">
+          <%= currentUser.getFirstName() %>
+        </bbNG:listElement>
 
-    <bbNG:listElement name="session" label="Number of Sessions">
-      <%= sessionCount.getSessionCount() %>
-    </bbNG:listElement>
-  </bbNG:pagedList>
+        <bbNG:listElement name="lastName" label="Last Name">
+          <%= currentUser.getLastName() %>
+        </bbNG:listElement>
+
+        <bbNG:listElement name="session" label="Number of Sessions">
+          <%= sessionCount.getSessionCount() %>
+        </bbNG:listElement>
+    <%
+      }
+    %>
+
+    </bbNG:pagedList>
 
 <%
+  }
+
   if (null != persistenceManager) {
     persistenceManager.releaseConnection();
   }

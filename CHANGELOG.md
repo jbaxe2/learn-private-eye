@@ -1,6 +1,12 @@
 # Learn PrivateEye
 **(learn-private-eye)**
 
+0.10.20181221
+- Start of work to resolve errors when viewing course session counts in 'large'
+courses, whereby the application loads a blank page.
+- Changed the web.xml error page to a system page, instead of an included page.
+- Increased application stability.
+
 0.10.20181220
 - Continued work with user context bread crumb navigation controls.
   - Resolved user (non-course and login attempts) bread crumb navigation.

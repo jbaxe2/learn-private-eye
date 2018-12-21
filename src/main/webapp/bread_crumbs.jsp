@@ -35,65 +35,69 @@
     </bbNG:breadcrumb>
 
     <%
-      if ("course".equals (contextQuery)) {
-        if (!((null == bcUserId) || bcUserId.isEmpty())) {
-          href = href + "&user_id=" + bcUserId;
+      try {
+        if ("course".equals (contextQuery)) {
+          if (!((null == bcUserId) || bcUserId.isEmpty())) {
+            href = href + "&user_id=" + bcUserId;
 
-          %><bbNG:breadcrumb href="<%= href %>">Enrollment Sessions</bbNG:breadcrumb><%
+            %><bbNG:breadcrumb href="<%= href %>">Enrollment Sessions</bbNG:breadcrumb><%
 
-          if (!((null == bcSessionId) || bcSessionId.isEmpty())) {
-            href = baseHref + "&course_id=" + bcCourseId +
-              "&user_id=" + bcUserId;
+            if (!((null == bcSessionId) || bcSessionId.isEmpty())) {
+              href = baseHref + "&course_id=" + bcCourseId +
+                "&user_id=" + bcUserId;
 
-            %><bbNG:breadcrumb href="<%= href %>">
-              Session #<%= bcSessionId %>
-            </bbNG:breadcrumb><%
+              %><bbNG:breadcrumb href="<%= href %>">
+                Session #<%= bcSessionId %>
+              </bbNG:breadcrumb><%
+            }
           }
-        }
-      } else if ("user".equals (contextQuery)) {
-        if (!((null == bcContextualize) || bcContextualize.isEmpty())) {
-          href = baseHref + "&contextualize=sessions&user_id=" + bcUserId;
+        } else if ("user".equals (contextQuery)) {
+          if (!((null == bcContextualize) || bcContextualize.isEmpty())) {
+            href = baseHref + "&contextualize=sessions&user_id=" + bcUserId;
 
-          %><bbNG:breadcrumb href="<%= href %>">User Session Counts</bbNG:breadcrumb><%
+            %><bbNG:breadcrumb href="<%= href %>">User Session Counts</bbNG:breadcrumb><%
 
-          if (!((null == bcSessionId) || bcSessionId.isEmpty())) {
-            if ("system".equals (bcContextualize) ||
-                "logins".equals (bcContextualize)) {
-              String breadCrumbText = "User Non-Course Sessions";
+            if (!((null == bcSessionId) || bcSessionId.isEmpty())) {
+              if ("system".equals (bcContextualize) ||
+                  "logins".equals (bcContextualize)) {
+                String breadCrumbText = "User Non-Course Sessions";
 
-              if (!((null == bcForContextualize) || bcForContextualize.isEmpty()) &&
-                   "logins".equals (bcForContextualize)) {
+                if (!((null == bcForContextualize) || bcForContextualize.isEmpty()) &&
+                     "logins".equals (bcForContextualize)) {
+                  href = baseHref + "&contextualize=logins&user_id=" + bcUserId;
+                  breadCrumbText = "User Login Attempts";
+                } else {
+                  href = baseHref + "&contextualize=system&user_id=" + bcUserId;
+                }
+
+                %><bbNG:breadcrumb href="<%= href %>">
+                  <%= breadCrumbText %>
+                </bbNG:breadcrumb><%
+
+                if ("system".equals (bcContextualize)) {
+                  %><bbNG:breadcrumb>Session #<%= bcSessionId %></bbNG:breadcrumb><%
+                }
+              }
+            } else {
+              if ("system".equals (bcContextualize) ||
+                  "logins".equals (bcContextualize)) {
                 href = baseHref + "&contextualize=logins&user_id=" + bcUserId;
-                breadCrumbText = "User Login Attempts";
-              } else {
-                href = baseHref + "&contextualize=system&user_id=" + bcUserId;
+
+                %><bbNG:breadcrumb href="<%= href %>">
+                  <%
+                    if ("system".equals (bcContextualize)) {
+                      %>User Non-Course Sessions<%
+                    } else {
+                      %>User Login Attempts<%
+                    }
+                  %>
+                </bbNG:breadcrumb><%
               }
-
-              %><bbNG:breadcrumb href="<%= href %>">
-                <%= breadCrumbText %>
-              </bbNG:breadcrumb><%
-
-              if ("system".equals (bcContextualize)) {
-                %><bbNG:breadcrumb>Session #<%= bcSessionId %></bbNG:breadcrumb><%
-              }
-            }
-          } else {
-            if ("system".equals (bcContextualize) ||
-                "logins".equals (bcContextualize)) {
-              href = baseHref + "&contextualize=logins&user_id=" + bcUserId;
-
-              %><bbNG:breadcrumb href="<%= href %>">
-                <%
-                  if ("system".equals (bcContextualize)) {
-                    %>User Non-Course Sessions<%
-                  } else {
-                    %>User Login Attempts<%
-                  }
-                %>
-              </bbNG:breadcrumb><%
             }
           }
         }
+      } catch (Exception e) {
+        %><bbNG:error exception="<%= e %>" /><%
       }
     %>
 
