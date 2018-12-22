@@ -1,6 +1,9 @@
 # Learn PrivateEye
 **(learn-private-eye)**
 
+0.10.20181222
+- Start of developing content-based tracking.
+
 0.10.20181221
 - Start of work to resolve errors when viewing course session counts in 'large'
 courses, whereby the application loads a blank page.
