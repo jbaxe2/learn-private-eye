@@ -1,6 +1,12 @@
 # Learn PrivateEye
 **(learn-private-eye)**
 
+0.10.20181224
+- Continuing developing content-based tracking.
+- Start of developing compound event tracking.
+  - Compound event is a single event containing multiple entries in the activity
+  accumulator, corresponded by session ID and timestamp.
+
 0.10.20181222
 - Start of developing content-based tracking.
 
