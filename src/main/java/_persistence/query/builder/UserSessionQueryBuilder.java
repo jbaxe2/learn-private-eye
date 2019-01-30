@@ -15,12 +15,17 @@ public class UserSessionQueryBuilder implements QueryBuilder {
 
   private final Connection connection;
 
+  private final Connection statsConnection;
+
   /**
    * The [UserSessionQueryBuilder] constructor...
    */
-  public UserSessionQueryBuilder (Id userId, Connection connection) {
+  public UserSessionQueryBuilder (
+    Id userId, Connection connection, Connection statsConnection
+  ) {
     this.userId = userId;
     this.connection = connection;
+    this.statsConnection = statsConnection;
   }
 
   /**
@@ -32,6 +37,7 @@ public class UserSessionQueryBuilder implements QueryBuilder {
 
     return _createUserSessionStatement (statement);
   }
+
   /**
    * The [retrieveNumberOfSessions] method...
    */

@@ -21,15 +21,20 @@ import blackboard.platform.persistence.PersistenceServiceFactory;
 public class PersistenceManager {
   private ConnectionManager connectionManager;
 
+  private ConnectionManager statsConnectionManager;
+
   private BbPersistenceManager bbPersistenceManager;
 
   private Connection connection;
+
+  private Connection statsConnection;
 
   /**
    * The [PersistenceManager] constructor...
    */
   public PersistenceManager() throws ConnectionNotAvailableException {
     _establishDatabase();
+    _establishStatsDatabase();
     _establishLoaderManager();
   }
 
@@ -59,16 +64,24 @@ public class PersistenceManager {
   }
 
   /**
-   * The [releaseConnection] method...
+   * The [releaseConnections] method...
    */
-  public void releaseConnection () {
+  public void releaseConnections() {
     if (null != connectionManager) {
       connectionManager.releaseConnection (connection);
+    }
+
+    if (null != statsConnectionManager) {
+      statsConnectionManager.releaseConnection (statsConnection);
     }
   }
 
   public Connection getConnection() {
     return connection;
+  }
+
+  public Connection getStatsConnection() {
+    return statsConnection;
   }
 
   /**
@@ -77,6 +90,14 @@ public class PersistenceManager {
   private void _establishDatabase() throws ConnectionNotAvailableException {
     connectionManager = BbDatabase.getDefaultInstance().getConnectionManager();
     connection = connectionManager.getConnection();
+  }
+
+  /**
+   * The [_establishStatsDatabase] method...
+   */
+  private void _establishStatsDatabase() throws ConnectionNotAvailableException {
+    statsConnectionManager = BbDatabase.getStatisticsDefaultInstance().getConnectionManager();
+    statsConnection = statsConnectionManager.getConnection();
   }
 
   /**

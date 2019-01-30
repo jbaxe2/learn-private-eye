@@ -49,7 +49,9 @@
     user = context.getUser();
 
     userQuery = new UserSessionQuery (
-      context.getContextId(), persistenceManager.getConnection()
+      context.getContextId(),
+      persistenceManager.getConnection(),
+      persistenceManager.getStatsConnection()
     );
 
     loginSessions = userQuery.retrieveSuccessfulLogins();
@@ -132,7 +134,7 @@
   }
 
   if (null != persistenceManager) {
-    persistenceManager.releaseConnection();
+    persistenceManager.releaseConnections();
   }
 %>
 

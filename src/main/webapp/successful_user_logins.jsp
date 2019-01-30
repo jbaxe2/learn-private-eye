@@ -30,7 +30,9 @@
     loader = (UserDbLoader)persistenceManager.retrieveLoader (UserDbLoader.TYPE);
     user = new SimpleUser (loader.loadById (userId));
 
-    userQuery = new UserSessionQuery (userId, persistenceManager.getConnection());
+    userQuery = new UserSessionQuery (
+      userId, persistenceManager.getConnection(), persistenceManager.getStatsConnection()
+    );
 
     loginSessions = userQuery.retrieveSuccessfulLogins();
     loginAttempts = loginSessions.getUserSessions();
@@ -72,7 +74,7 @@
 
 <%
   if (null != persistenceManager) {
-    persistenceManager.releaseConnection();
+    persistenceManager.releaseConnections();
   }
 %>
 

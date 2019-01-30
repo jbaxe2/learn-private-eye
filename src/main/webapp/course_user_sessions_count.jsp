@@ -31,7 +31,7 @@
     context.loadCourseUsers (loader);
 
     courseQuery = new CourseSessionQuery (
-      courseId, persistenceManager.getConnection()
+      courseId, persistenceManager.getConnection(), persistenceManager.getStatsConnection()
     );
 
     sessionCountList = courseQuery.retrieveNumberSessionsAllUsers();
@@ -99,7 +99,7 @@
   }
 
   if (null != persistenceManager) {
-    persistenceManager.releaseConnection();
+    persistenceManager.releaseConnections();
   }
 %>
 

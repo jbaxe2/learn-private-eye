@@ -34,7 +34,7 @@
     user = new SimpleUser (loader.loadById (userId));
 
     courseQuery = new CourseSessionQuery (
-      courseId, persistenceManager.getConnection()
+      courseId, persistenceManager.getConnection(), persistenceManager.getStatsConnection()
     );
 
     singleSession = courseQuery.retrieveSessionForUser (courseId, userId, sessionId);
@@ -73,7 +73,7 @@
 
 <%
   if (null != persistenceManager) {
-    persistenceManager.releaseConnection();
+    persistenceManager.releaseConnections();
   }
 %>
 

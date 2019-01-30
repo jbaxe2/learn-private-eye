@@ -14,12 +14,17 @@ public class CourseSessionQueryBuilder implements QueryBuilder {
 
   private final Connection connection;
 
+  private final Connection statsConnection;
+
   /**
    * The [CourseSessionQueryBuilder] constructor...
    */
-  public CourseSessionQueryBuilder (Id courseId, Connection connection) {
+  public CourseSessionQueryBuilder (
+    Id courseId, Connection connection, Connection statsConnection
+  ) {
     this.courseId = courseId;
     this.connection = connection;
+    this.statsConnection = statsConnection;
   }
 
   /**

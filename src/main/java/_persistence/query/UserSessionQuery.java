@@ -30,10 +30,12 @@ public class UserSessionQuery {
   /**
    * The [UserSessionQuery] constructor...
    */
-  public UserSessionQuery (Id userId, Connection connection) {
+  public UserSessionQuery (
+    Id userId, Connection connection, Connection statsConnection
+  ) {
     this.userId = userId;
 
-    builder = new UserSessionQueryBuilder (userId, connection);
+    builder = new UserSessionQueryBuilder (userId, connection, statsConnection);
   }
 
   /**

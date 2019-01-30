@@ -30,8 +30,11 @@ public class CourseSessionQuery {
   /**
    * The [CourseSessionQuery] constructor...
    */
-  public CourseSessionQuery (Id courseId, Connection connection) {
-    builder = new CourseSessionQueryBuilder (courseId, connection);
+  public CourseSessionQuery (
+    Id courseId, Connection connection, Connection statsConnection
+  ) {
+    builder =
+      new CourseSessionQueryBuilder (courseId, connection, statsConnection);
 
     this.courseId = courseId;
   }
