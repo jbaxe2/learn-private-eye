@@ -36,6 +36,9 @@
 
     loginSessions = userQuery.retrieveSuccessfulLogins();
     loginAttempts = loginSessions.getUserSessions();
+
+    loginSessions = userQuery.retrieveStatsSuccessfulLogins();
+    loginAttempts.putAll (loginSessions.getUserSessions());
   } catch (Exception e) {
     %><bbNG:error exception="<%= e %>" /><%
   }
@@ -50,7 +53,8 @@
       collection="<%= loginAttempts.values() %>"
       className="session.SingleUserSession"
       objectVar="loginAttempt"
-      recordCount="<%= loginAttempts.values().size() %>">
+      recordCount="<%= loginAttempts.values().size() %>"
+      initialSortCol="timestamp">
     <%
       String sessionId = loginAttempt.getSessionId();
     %>

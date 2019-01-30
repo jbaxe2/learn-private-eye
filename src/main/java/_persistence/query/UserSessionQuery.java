@@ -50,11 +50,33 @@ public class UserSessionQuery {
   }
 
   /**
+   * The [retrieveStatsSuccessfulLogins] method...
+   */
+  public UserSessionsCollection retrieveStatsSuccessfulLogins()
+      throws SQLException, SessionException {
+    PreparedStatement preparedStatement = builder.retrieveStatsSuccessfulLogins();
+    executor = new UserSessionQueryExecutor (userId, preparedStatement);
+
+    return executor.retrieveSuccessfulLogins();
+  }
+
+  /**
    * The [retrieveNumberOfSessions] method...
    */
   public List<SimpleCourseUserSessionCount> retrieveNumberOfSessions()
       throws SQLException {
     PreparedStatement preparedStatement = builder.retrieveNumberOfSessions();
+    executor = new UserSessionQueryExecutor (userId, preparedStatement);
+
+    return executor.retrieveNumberOfSessions();
+  }
+
+  /**
+   * The [retrieveStatsNumberOfSessions] method...
+   */
+  public List<SimpleCourseUserSessionCount> retrieveStatsNumberOfSessions()
+      throws SQLException {
+    PreparedStatement preparedStatement = builder.retrieveStatsNumberOfSessions();
     executor = new UserSessionQueryExecutor (userId, preparedStatement);
 
     return executor.retrieveNumberOfSessions();
@@ -72,12 +94,36 @@ public class UserSessionQuery {
   }
 
   /**
+   * The [retrieveStatsSystemSessions] method...
+   */
+  public UserSessionsCollection retrieveStatsSystemSessions()
+      throws SQLException, SessionException {
+    PreparedStatement preparedStatement = builder.retrieveStatsSystemSessions();
+    executor = new UserSessionQueryExecutor (userId, preparedStatement);
+
+    return executor.retrieveSystemSessions();
+  }
+
+  /**
    * The [retrieveSystemSession] method...
    */
   public SingleUserSession retrieveSystemSession (String sessionId)
       throws SQLException, SessionException {
     PreparedStatement preparedStatement =
       builder.retrieveSystemSession (sessionId);
+
+    executor = new UserSessionQueryExecutor (userId, preparedStatement);
+
+    return executor.retrieveSystemSession (sessionId);
+  }
+
+  /**
+   * The [retrieveStatsSystemSession] method...
+   */
+  public SingleUserSession retrieveStatsSystemSession (String sessionId)
+      throws SQLException, SessionException {
+    PreparedStatement preparedStatement =
+      builder.retrieveStatsSystemSession (sessionId);
 
     executor = new UserSessionQueryExecutor (userId, preparedStatement);
 

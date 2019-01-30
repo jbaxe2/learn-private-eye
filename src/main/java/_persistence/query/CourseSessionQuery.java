@@ -51,11 +51,33 @@ public class CourseSessionQuery {
   }
 
   /**
+   * The [retrieveStatsNumberSessionsAllUsers] method...
+   */
+  public List<SimpleCourseUserSessionCount> retrieveStatsNumberSessionsAllUsers()
+      throws SQLException {
+    PreparedStatement preparedStatement = builder.retrieveStatsNumberSessionsAllUsers();
+    executor = new CourseSessionQueryExecutor (preparedStatement);
+
+    return executor.retrieveNumberSessionsAllUsers (courseId);
+  }
+
+  /**
    * The [retrieveSessionsForUser] method...
    */
   public CourseUserSessionsCollection retrieveSessionsForUser (Id userId)
       throws SQLException, SessionException {
     PreparedStatement preparedStatement = builder.retrieveSessionsForUser (userId);
+    executor = new CourseSessionQueryExecutor (preparedStatement);
+
+    return executor.retrieveSessionsForUser();
+  }
+
+  /**
+   * The [retrieveStatsSessionsForUser] method...
+   */
+  public CourseUserSessionsCollection retrieveStatsSessionsForUser (Id userId)
+      throws SQLException, SessionException {
+    PreparedStatement preparedStatement = builder.retrieveStatsSessionsForUser (userId);
     executor = new CourseSessionQueryExecutor (preparedStatement);
 
     return executor.retrieveSessionsForUser();
@@ -69,6 +91,20 @@ public class CourseSessionQuery {
   ) throws SQLException, SessionException {
     PreparedStatement preparedStatement =
       builder.retrieveSessionForUser (userId, sessionId);
+
+    executor = new CourseSessionQueryExecutor (preparedStatement);
+
+    return executor.retrieveSessionForUser (courseId, userId, sessionId);
+  }
+
+  /**
+   * The [retrieveStatsSessionForUser] method...
+   */
+  public SingleCourseUserSession retrieveStatsSessionForUser (
+    Id courseId, Id userId, String sessionId
+  ) throws SQLException, SessionException {
+    PreparedStatement preparedStatement =
+        builder.retrieveStatsSessionForUser (userId, sessionId);
 
     executor = new CourseSessionQueryExecutor (preparedStatement);
 

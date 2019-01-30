@@ -39,6 +39,9 @@
 
     singleSession = courseQuery.retrieveSessionForUser (courseId, userId, sessionId);
     sessionEvents = singleSession.getSessionActivities();
+
+    singleSession = courseQuery.retrieveStatsSessionForUser (courseId, userId, sessionId);
+    sessionEvents.addAll (singleSession.getSessionActivities());
   } catch (Exception e) {
     %><bbNG:error exception="<%= e %>" /><%
   }
@@ -53,7 +56,8 @@
       collection="<%= sessionEvents %>"
       className="activity.ActivityEvent"
       objectVar="sessionEvent"
-      recordCount="<%= sessionEvents.size() %>">
+      recordCount="<%= sessionEvents.size() %>"
+      initialSortCol="timestamp">
     <bbNG:listElement name="timestamp" label="Date &amp; Timestamp" isRowHeader="true">
       <%= dateFormatter.format (sessionEvent.getTimestamp()) %>
     </bbNG:listElement>

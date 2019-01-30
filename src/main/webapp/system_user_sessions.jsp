@@ -38,6 +38,9 @@
 
     userSessions = userQuery.retrieveSystemSessions();
     sessionsMap = userSessions.getUserSessions();
+
+    userSessions = userQuery.retrieveStatsSystemSessions();
+    sessionsMap.putAll (userSessions.getUserSessions());
   } catch (Exception e) {
     %><bbNG:error exception="<%= e %>" /><%
   }
@@ -51,7 +54,8 @@
       collection="<%= sessionsMap.values() %>"
       className="session.SingleUserSession"
       objectVar="userSession"
-      recordCount="<%= sessionsMap.values().size() %>">
+      recordCount="<%= sessionsMap.values().size() %>"
+      initialSortCol="timestamp">
     <%
       String sessionId = userSession.getSessionId();
     %>

@@ -31,6 +31,8 @@
 
   List<SimpleCourseUserSessionCount> sessionCountList = new ArrayList<>();
 
+  int successfulLogins = 0;
+
   try {
     persistenceManager = new PersistenceManager();
     userLoader = (UserDbLoader)persistenceManager.retrieveLoader (UserDbLoader.TYPE);
@@ -56,6 +58,11 @@
 
     loginSessions = userQuery.retrieveSuccessfulLogins();
     sessionCountList = userQuery.retrieveNumberOfSessions();
+    successfulLogins += loginSessions.getUserSessions().size();
+
+    loginSessions = userQuery.retrieveStatsSuccessfulLogins();
+    sessionCountList.addAll (userQuery.retrieveNumberOfSessions());
+    successfulLogins += loginSessions.getUserSessions().size();
   } catch (Exception e) {
     %><bbNG:error exception="<%= e %>" /><%
   }
@@ -68,8 +75,7 @@
     <p style="background-color: lightgrey; margin-bottom: 10px; padding: 8px; font-size: medium;">
       Number of successful login attempts: &nbsp;
       <strong><a href="index.jsp?context=user&contextualize=logins&user_id=<%= user.getPk1()
-          %>&startIndex=0"><%=
-        loginSessions.getUserSessions().size()
+        %>&startIndex=0"><%= successfulLogins
       %></a></strong>
     </p><br>
 

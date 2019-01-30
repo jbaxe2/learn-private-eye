@@ -35,6 +35,7 @@
     );
 
     sessionCountList = courseQuery.retrieveNumberSessionsAllUsers();
+    sessionCountList.addAll (courseQuery.retrieveStatsNumberSessionsAllUsers());
   } catch (Exception e) {
     %><bbNG:error exception="<%= e %>" /><%
   }
@@ -55,7 +56,8 @@
         collection="<%= sessionCountList %>"
         className="session.SimpleCourseUserSessionCount"
         objectVar="sessionCount"
-        recordCount="<%= sessionCountList.size() %>">
+        recordCount="<%= sessionCountList.size() %>"
+        initialSortCol="username">
     <%
       SimpleUser currentUser = null;
 

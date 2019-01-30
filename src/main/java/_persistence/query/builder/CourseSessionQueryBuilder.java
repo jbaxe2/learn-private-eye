@@ -9,12 +9,8 @@ import blackboard.persist.Id;
 /**
  * The [CourseSessionQueryBuilder] class...
  */
-public class CourseSessionQueryBuilder implements QueryBuilder {
+public class CourseSessionQueryBuilder extends ConnectionQueryBuilder {
   private final Id courseId;
-
-  private final Connection connection;
-
-  private final Connection statsConnection;
 
   /**
    * The [CourseSessionQueryBuilder] constructor...
@@ -22,20 +18,30 @@ public class CourseSessionQueryBuilder implements QueryBuilder {
   public CourseSessionQueryBuilder (
     Id courseId, Connection connection, Connection statsConnection
   ) {
+    super (connection, statsConnection);
+
     this.courseId = courseId;
-    this.connection = connection;
-    this.statsConnection = statsConnection;
   }
 
   /**
    * The [retrieveNumberSessionsAllUsers] method...
    */
   public PreparedStatement retrieveNumberSessionsAllUsers() throws SQLException {
-    String statement = "SELECT user_pk1, COUNT(DISTINCT session_id) " +
-      "AS session_count FROM activity_accumulator WHERE course_pk1 = ? " +
-      "GROUP BY user_pk1";
+    PreparedStatement preparedStatement =
+      connection.prepareStatement (_buildNumberSessionsAllUsersQuery());
 
-    PreparedStatement preparedStatement = connection.prepareStatement (statement);
+    preparedStatement.setString (1, courseId.getExternalString().split ("_")[1]);
+
+    return preparedStatement;
+  }
+
+  /**
+   * The [retrieveStatsNumberSessionsAllUsers] method...
+   */
+  public PreparedStatement retrieveStatsNumberSessionsAllUsers() throws SQLException {
+    PreparedStatement preparedStatement =
+      statsConnection.prepareStatement (_buildNumberSessionsAllUsersQuery());
+
     preparedStatement.setString (1, courseId.getExternalString().split ("_")[1]);
 
     return preparedStatement;
@@ -46,10 +52,15 @@ public class CourseSessionQueryBuilder implements QueryBuilder {
    */
   public PreparedStatement retrieveSessionsForUser (Id userId)
       throws SQLException {
-    String statement = "SELECT * FROM activity_accumulator WHERE course_pk1 = ? " +
-      "AND user_pk1 = ? ORDER BY timestamp DESC";
+    return _createUserSessionStatement (_buildSessionsForUserQuery(), userId, false);
+  }
 
-    return _createUserSessionStatement (statement, userId);
+  /**
+   * The [retrieveStatsSessionsForUser] method...
+   */
+  public PreparedStatement retrieveStatsSessionsForUser (Id userId)
+      throws SQLException {
+    return _createUserSessionStatement (_buildSessionsForUserQuery(), userId, true);
   }
 
   /**
@@ -57,10 +68,22 @@ public class CourseSessionQueryBuilder implements QueryBuilder {
    */
   public PreparedStatement retrieveSessionForUser (Id userId, String sessionId)
       throws SQLException {
-    String statement = "SELECT * FROM activity_accumulator WHERE course_pk1 = ? " +
-      "AND user_pk1 = ? AND session_id = ? ORDER BY timestamp DESC";
+    PreparedStatement preparedStatement =
+      _createUserSessionStatement (_buildSessionForUserQuery(), userId, false);
 
-    PreparedStatement preparedStatement = _createUserSessionStatement (statement, userId);
+    preparedStatement.setString (3, sessionId);
+
+    return preparedStatement;
+  }
+
+  /**
+   * The [retrieveStatsSessionForUser] method...
+   */
+  public PreparedStatement retrieveStatsSessionForUser (Id userId, String sessionId)
+      throws SQLException {
+    PreparedStatement preparedStatement =
+      _createUserSessionStatement (_buildSessionForUserQuery(), userId, true);
+
     preparedStatement.setString (3, sessionId);
 
     return preparedStatement;
@@ -70,13 +93,39 @@ public class CourseSessionQueryBuilder implements QueryBuilder {
    * The [_createUserSessionStatement] private method...
    */
   private PreparedStatement _createUserSessionStatement (
-    String statement, Id userId
+    String statement, Id userId, boolean forStats
   ) throws SQLException {
-    PreparedStatement preparedStatement = connection.prepareStatement (statement);
+    Connection theConnection = whichConnection (forStats);
 
+    PreparedStatement preparedStatement = theConnection.prepareStatement (statement);
     preparedStatement.setString (1, courseId.getExternalString().split ("_")[1]);
     preparedStatement.setString (2, userId.getExternalString().split ("_")[1]);
 
     return preparedStatement;
+  }
+
+  /**
+   * The [_buildNumberSessionsAllUsersQuery] method...
+   */
+  private String _buildNumberSessionsAllUsersQuery() {
+    return "SELECT user_pk1, COUNT(DISTINCT session_id) " +
+      "AS session_count FROM activity_accumulator WHERE course_pk1 = ? " +
+      "GROUP BY user_pk1";
+  }
+
+  /**
+   * The [_buildSessionsForUserQuery] method...
+   */
+  private String _buildSessionsForUserQuery() {
+    return "SELECT * FROM activity_accumulator WHERE course_pk1 = ? " +
+      "AND user_pk1 = ? ORDER BY timestamp DESC";
+  }
+
+  /**
+   * The [_buildSessionForUserQuery] method...
+   */
+  private String _buildSessionForUserQuery() {
+    return "SELECT * FROM activity_accumulator WHERE course_pk1 = ? " +
+      "AND user_pk1 = ? AND session_id = ? ORDER BY timestamp DESC";
   }
 }

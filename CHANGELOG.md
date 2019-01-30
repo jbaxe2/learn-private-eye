@@ -1,6 +1,13 @@
 # Learn PrivateEye
 **(learn-private-eye)**
 
+0.11.20190130
+- Included tracking information from the stats database.
+  - Some issues need to be fixed:
+    - User may be shown twice (once for prod, once for stats).
+    - Sorting tracking information by date is overridden by session ID sorting.
+    - Counts are currently not accurate.
+
 0.10.20181224
 - Continuing developing content-based tracking.
 - Start of developing compound event tracking.

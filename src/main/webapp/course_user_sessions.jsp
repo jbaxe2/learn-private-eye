@@ -42,6 +42,9 @@
 
     courseUserSessions = courseQuery.retrieveSessionsForUser (userId);
     sessionsMap = courseUserSessions.getCourseSessions();
+
+    courseUserSessions = courseQuery.retrieveStatsSessionsForUser (userId);
+    sessionsMap.putAll (courseUserSessions.getCourseSessions());
   } catch (Exception e) {
     %><bbNG:error exception="<%= e %>" /><%
   }
@@ -55,7 +58,8 @@
       collection="<%= sessionsMap.values() %>"
       className="session.SingleCourseUserSession"
       objectVar="courseUserSession"
-      recordCount="<%= sessionsMap.values().size() %>">
+      recordCount="<%= sessionsMap.values().size() %>"
+      initialSortCol="timestamp">
     <%
       String sessionId = courseUserSession.getSessionId();
     %>
