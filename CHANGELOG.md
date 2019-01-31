@@ -1,6 +1,9 @@
 # Learn PrivateEye
 **(learn-private-eye)**
 
+0.11.20190131
+- Work towards resolving issues relating to including stats database.
+
 0.11.20190130
 - Included tracking information from the stats database.
   - Some issues need to be fixed:

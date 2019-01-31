@@ -91,17 +91,17 @@
         recordCount="<%= sessionCountList.size() %>"
         initialSortCol="courseId">
     <%
-        Id currentCourseId = null;
-        SimpleCourse currentCourse = null;
+      Id currentCourseId = null;
+      SimpleCourse currentCourse = null;
 
-        try {
-          if (null != sessionCount.getCoursePk1()) {
-            currentCourseId = Id.toId (Course.DATA_TYPE, sessionCount.getCoursePk1());
-            currentCourse = context.loadCourseForContext (courseLoader, currentCourseId);
-          }
-        } catch (Exception e) {
-          %><bbNG:error exception="<%= e %>" /><%
+      try {
+        if (null != sessionCount.getCoursePk1()) {
+          currentCourseId = Id.toId (Course.DATA_TYPE, sessionCount.getCoursePk1());
+          currentCourse = context.loadCourseForContext (courseLoader, currentCourseId);
         }
+      } catch (Exception e) {
+        %><bbNG:error exception="<%= e %>" /><%
+      }
     %>
       <bbNG:listElement name="courseId" label="Course ID" isRowHeader="true">
         <%
