@@ -23,14 +23,17 @@ public class UserSessionQueryExecutor
 
   private final PreparedStatement preparedStatement;
 
+  private final boolean forStats;
+
   /**
    * The [UserSessionQueryExecutor] constructor...
    */
   public UserSessionQueryExecutor (
-    Id userId, PreparedStatement preparedStatement
+    Id userId, PreparedStatement preparedStatement, boolean forStats
   ) {
     this.userId = userId;
     this.preparedStatement = preparedStatement;
+    this.forStats = forStats;
   }
 
   /**
@@ -46,7 +49,7 @@ public class UserSessionQueryExecutor
    */
   public List<SimpleCourseUserSessionCount> retrieveNumberOfSessions()
       throws SQLException {
-    return super.retrieveNumberOfSessions (preparedStatement, null);
+    return super.retrieveNumberOfSessions (preparedStatement, null, forStats);
   }
 
   /**
@@ -67,7 +70,9 @@ public class UserSessionQueryExecutor
     SingleUserSession userSession = new SingleUserSession (userId, sessionId);
 
     while (sessionResult.next()) {
-      userSession.addSessionActivity (_createActivityEvent (sessionResult));
+      userSession.addSessionActivity (
+        _createActivityEvent (sessionResult, forStats)
+      );
     }
 
     return userSession;
@@ -84,7 +89,7 @@ public class UserSessionQueryExecutor
 
     while (sessionsResult.next()) {
       sessionsCollection.pushSessionEventToCollection (
-        _createActivityEvent (sessionsResult)
+        _createActivityEvent (sessionsResult, forStats)
       );
     }
 

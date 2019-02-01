@@ -43,6 +43,23 @@ public class SingleCourseUserSession extends SingleUserSession {
     sessionAccumulator.addSessionActivity (sessionActivity);
   }
 
+  /**
+   * The [containsStatsTracking] method...
+   */
+  public boolean containsStatsTracking() {
+    boolean contains = false;
+
+    for (ActivityEvent event : sessionAccumulator.getSessionActivities()) {
+      if (event.getForStats()) {
+        contains = true;
+
+        break;
+      }
+    }
+
+    return contains;
+  }
+
   public Id getCourseId() {
     return courseId;
   }

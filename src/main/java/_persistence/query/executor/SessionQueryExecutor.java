@@ -20,7 +20,7 @@ abstract class SessionQueryExecutor {
    * The [retrieveNumberOfSessions] method...
    */
   List<SimpleCourseUserSessionCount> retrieveNumberOfSessions (
-    PreparedStatement preparedStatement, Id courseId
+    PreparedStatement preparedStatement, Id courseId, boolean forStats
   ) throws SQLException {
     ResultSet countResult = preparedStatement.executeQuery();
     List<SimpleCourseUserSessionCount> sessionCountList = new ArrayList<>();
@@ -41,7 +41,8 @@ abstract class SessionQueryExecutor {
       SimpleCourseUserSessionCount sessionCount = new SimpleCourseUserSessionCount (
         courseIdStr,
         countResult.getString ("user_pk1"),
-        countResult.getInt ("session_count")
+        countResult.getInt ("session_count"),
+        forStats
       );
 
       sessionCountList.add (sessionCount);
@@ -53,7 +54,8 @@ abstract class SessionQueryExecutor {
   /**
    * The [_createActivityEvent] method...
    */
-  ActivityEvent _createActivityEvent (ResultSet sessionResult) throws SQLException {
+  ActivityEvent _createActivityEvent (ResultSet sessionResult, boolean forStats)
+      throws SQLException {
     return new ActivityEvent (
       sessionResult.getString ("pk1"),
       sessionResult.getString ("user_pk1"),
@@ -65,7 +67,8 @@ abstract class SessionQueryExecutor {
       sessionResult.getString ("internal_handle"),
       sessionResult.getString ("data"),
       sessionResult.getDate ("timestamp"),
-      sessionResult.getString ("session_id")
+      sessionResult.getString ("session_id"),
+      forStats
     );
   }
 }

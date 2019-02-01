@@ -21,11 +21,16 @@ public class CourseSessionQueryExecutor
     extends SessionQueryExecutor implements QueryExecutor {
   private final PreparedStatement preparedStatement;
 
+  private final boolean forStats;
+
   /**
    * The [CourseSessionQueryExecutor] constructor...
    */
-  public CourseSessionQueryExecutor (PreparedStatement preparedStatement) {
+  public CourseSessionQueryExecutor (
+    PreparedStatement preparedStatement, boolean forStats
+  ) {
     this.preparedStatement = preparedStatement;
+    this.forStats = forStats;
   }
 
   /**
@@ -34,7 +39,7 @@ public class CourseSessionQueryExecutor
   public List<SimpleCourseUserSessionCount> retrieveNumberSessionsAllUsers (
     Id courseId
   ) throws SQLException {
-    return super.retrieveNumberOfSessions (preparedStatement, courseId);
+    return super.retrieveNumberOfSessions (preparedStatement, courseId, forStats);
   }
 
   /**
@@ -49,7 +54,7 @@ public class CourseSessionQueryExecutor
 
     while (sessionsResult.next()) {
       sessionsCollection.pushSessionEventToCollection (
-        _createActivityEvent (sessionsResult)
+        _createActivityEvent (sessionsResult, forStats)
       );
     }
 
@@ -68,7 +73,9 @@ public class CourseSessionQueryExecutor
       new SingleCourseUserSession (courseId, userId, sessionId);
 
     while (sessionResult.next()) {
-      session.addSessionActivity (_createActivityEvent (sessionResult));
+      session.addSessionActivity (
+        _createActivityEvent (sessionResult, forStats)
+      );
     }
 
     return session;

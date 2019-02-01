@@ -5,6 +5,7 @@
   blackboard.data.user.User,
   blackboard.persist.user.UserDbLoader,
   blackboard.persist.Id,
+  _auxilliary.SingleUserSessionComparator,
   _persistence.PersistenceManager,
   _persistence.query.UserSessionQuery,
   session.SingleUserSession,
@@ -25,6 +26,7 @@
   SimpleUser user = null;
 
   SimpleDateFormat dateFormatter = new SimpleDateFormat ("yyyy/MM/dd hh:mm:ss a z");
+  SingleUserSessionComparator comparator = new SingleUserSessionComparator();
   Map<String, SingleUserSession> sessionsMap = new HashMap<>();
 
   try {
@@ -55,7 +57,8 @@
       className="session.SingleUserSession"
       objectVar="userSession"
       recordCount="<%= sessionsMap.values().size() %>"
-      initialSortCol="timestamp">
+      initialSortCol="timestamp"
+      initialSortBy="ASCENDING">
     <%
       String sessionId = userSession.getSessionId();
     %>
@@ -66,7 +69,10 @@
       </a>
     </bbNG:listElement>
 
-    <bbNG:listElement name="timestamp" label="Date &amp; Timestamp">
+    <bbNG:listElement
+        name="timestamp"
+        label="Date &amp; Timestamp"
+        comparator="<%= comparator %>">
       <%=
         dateFormatter.format (
           userSession.getSessionActivities().get (

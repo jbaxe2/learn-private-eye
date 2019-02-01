@@ -28,13 +28,16 @@ public class ActivityEvent implements Comparable {
 
   private final String sessionId;
 
+  private final boolean forStats;
+
   /**
    * The [ActivityEvent] constructor...
    */
   public ActivityEvent (
     String pk1, String userPk, String coursePk1, String groupPk1,
     String forumPk1, String contentPk1, String eventType,
-    String internalHandle, String data, Date timestamp, String sessionId
+    String internalHandle, String data, Date timestamp, String sessionId,
+    boolean forStats
   ) {
     this.pk1 = pk1;
     this.userPk1 = userPk;
@@ -47,6 +50,7 @@ public class ActivityEvent implements Comparable {
     this.data = data;
     this.timestamp = timestamp;
     this.sessionId = sessionId;
+    this.forStats = forStats;
   }
 
   /**
@@ -99,5 +103,9 @@ public class ActivityEvent implements Comparable {
 
   public String getSessionId() {
     return sessionId;
+  }
+
+  public boolean getForStats() {
+    return forStats;
   }
 }

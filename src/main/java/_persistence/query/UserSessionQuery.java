@@ -44,7 +44,7 @@ public class UserSessionQuery {
   public UserSessionsCollection retrieveSuccessfulLogins()
       throws SQLException, SessionException {
     PreparedStatement preparedStatement = builder.retrieveSuccessfulLogins();
-    executor = new UserSessionQueryExecutor (userId, preparedStatement);
+    executor = new UserSessionQueryExecutor (userId, preparedStatement, false);
 
     return executor.retrieveSuccessfulLogins();
   }
@@ -55,7 +55,7 @@ public class UserSessionQuery {
   public UserSessionsCollection retrieveStatsSuccessfulLogins()
       throws SQLException, SessionException {
     PreparedStatement preparedStatement = builder.retrieveStatsSuccessfulLogins();
-    executor = new UserSessionQueryExecutor (userId, preparedStatement);
+    executor = new UserSessionQueryExecutor (userId, preparedStatement, true);
 
     return executor.retrieveSuccessfulLogins();
   }
@@ -66,7 +66,7 @@ public class UserSessionQuery {
   public List<SimpleCourseUserSessionCount> retrieveNumberOfSessions()
       throws SQLException {
     PreparedStatement preparedStatement = builder.retrieveNumberOfSessions();
-    executor = new UserSessionQueryExecutor (userId, preparedStatement);
+    executor = new UserSessionQueryExecutor (userId, preparedStatement, false);
 
     return executor.retrieveNumberOfSessions();
   }
@@ -77,7 +77,7 @@ public class UserSessionQuery {
   public List<SimpleCourseUserSessionCount> retrieveStatsNumberOfSessions()
       throws SQLException {
     PreparedStatement preparedStatement = builder.retrieveStatsNumberOfSessions();
-    executor = new UserSessionQueryExecutor (userId, preparedStatement);
+    executor = new UserSessionQueryExecutor (userId, preparedStatement, true);
 
     return executor.retrieveNumberOfSessions();
   }
@@ -88,7 +88,7 @@ public class UserSessionQuery {
   public UserSessionsCollection retrieveSystemSessions()
       throws SQLException, SessionException {
     PreparedStatement preparedStatement = builder.retrieveSystemSessions();
-    executor = new UserSessionQueryExecutor (userId, preparedStatement);
+    executor = new UserSessionQueryExecutor (userId, preparedStatement, false);
 
     return executor.retrieveSystemSessions();
   }
@@ -99,7 +99,7 @@ public class UserSessionQuery {
   public UserSessionsCollection retrieveStatsSystemSessions()
       throws SQLException, SessionException {
     PreparedStatement preparedStatement = builder.retrieveStatsSystemSessions();
-    executor = new UserSessionQueryExecutor (userId, preparedStatement);
+    executor = new UserSessionQueryExecutor (userId, preparedStatement, true);
 
     return executor.retrieveSystemSessions();
   }
@@ -112,7 +112,7 @@ public class UserSessionQuery {
     PreparedStatement preparedStatement =
       builder.retrieveSystemSession (sessionId);
 
-    executor = new UserSessionQueryExecutor (userId, preparedStatement);
+    executor = new UserSessionQueryExecutor (userId, preparedStatement, false);
 
     return executor.retrieveSystemSession (sessionId);
   }
@@ -125,7 +125,7 @@ public class UserSessionQuery {
     PreparedStatement preparedStatement =
       builder.retrieveStatsSystemSession (sessionId);
 
-    executor = new UserSessionQueryExecutor (userId, preparedStatement);
+    executor = new UserSessionQueryExecutor (userId, preparedStatement, true);
 
     return executor.retrieveSystemSession (sessionId);
   }

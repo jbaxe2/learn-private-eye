@@ -91,6 +91,16 @@
         <bbNG:listElement name="session" label="Number of Sessions">
           <%= sessionCount.getSessionCount() %>
         </bbNG:listElement>
+
+        <bbNG:listElement name="stats" label="Contains Antiquated Tracking">
+          <%
+            if (sessionCount.getForStats()) {
+              %>Yes<%
+            } else {
+              %>No<%
+            }
+          %>
+        </bbNG:listElement>
     <%
       }
     %>

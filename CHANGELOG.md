@@ -2,7 +2,7 @@
 **(learn-private-eye)**
 
 0.11.20190131
-- Work towards resolving issues relating to including stats database.
+- Work towards resolving issues relating to inclusion of stats database.
 
 0.11.20190130
 - Included tracking information from the stats database.

@@ -5,6 +5,7 @@
   blackboard.persist.course.CourseDbLoader,
   blackboard.persist.user.UserDbLoader,
   blackboard.persist.Id,
+  _auxilliary.CourseSessionComparator,
   _context.PrivateEyeUserContext,
   _persistence.PersistenceManager,
   _persistence.query.UserSessionQuery,
@@ -30,6 +31,8 @@
   SimpleUser user = null;
 
   List<SimpleCourseUserSessionCount> sessionCountList = new ArrayList<>();
+
+  CourseSessionComparator comparator = new CourseSessionComparator();
 
   int successfulLogins = 0;
 
@@ -61,7 +64,7 @@
     successfulLogins += loginSessions.getUserSessions().size();
 
     loginSessions = userQuery.retrieveStatsSuccessfulLogins();
-    sessionCountList.addAll (userQuery.retrieveNumberOfSessions());
+    sessionCountList.addAll (userQuery.retrieveStatsNumberOfSessions());
     successfulLogins += loginSessions.getUserSessions().size();
   } catch (Exception e) {
     %><bbNG:error exception="<%= e %>" /><%
@@ -103,7 +106,11 @@
         %><bbNG:error exception="<%= e %>" /><%
       }
     %>
-      <bbNG:listElement name="courseId" label="Course ID" isRowHeader="true">
+      <bbNG:listElement
+          name="courseId"
+          label="Course ID"
+          isRowHeader="true"
+          comparator="<%= comparator %>">
         <%
           if (null == currentCourse) {
             %><a href="index.jsp?context=user&contextualize=system&user_id=<%= user.getPk1()
@@ -133,6 +140,16 @@
 
       <bbNG:listElement name="session" label="Number of Sessions">
         <%= sessionCount.getSessionCount() %>
+      </bbNG:listElement>
+
+      <bbNG:listElement name="stats" label="Contains Antiquated Tracking">
+        <%
+          if (sessionCount.getForStats()) {
+            %>Yes<%
+          } else {
+            %>No<%
+          }
+        %>
       </bbNG:listElement>
     </bbNG:pagedList>
 

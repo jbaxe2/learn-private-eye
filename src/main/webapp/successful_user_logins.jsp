@@ -4,6 +4,7 @@
   java.util.Map,
   blackboard.persist.user.UserDbLoader,
   blackboard.persist.Id,
+  _auxilliary.SingleUserSessionComparator,
   _persistence.PersistenceManager,
   _persistence.query.UserSessionQuery,
   session.UserSessionsCollection,
@@ -23,6 +24,7 @@
   SimpleUser user = null;
 
   SimpleDateFormat dateFormatter = new SimpleDateFormat ("yyyy/MM/dd hh:mm:ss a z");
+  SingleUserSessionComparator comparator = new SingleUserSessionComparator();
   Map<String, SingleUserSession> loginAttempts = new HashMap<>();
 
   try {
@@ -65,7 +67,10 @@
       </a>
     </bbNG:listElement>
 
-    <bbNG:listElement name="timestamp" label="Login Date &amp; Timestamp">
+    <bbNG:listElement
+        name="timestamp"
+        label="Login Date &amp; Timestamp"
+        comparator="<%= comparator %>">
       <%=
         dateFormatter.format (
           loginAttempt.getSessionActivities().get (

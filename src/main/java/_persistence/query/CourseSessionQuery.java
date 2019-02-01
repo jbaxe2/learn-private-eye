@@ -45,7 +45,7 @@ public class CourseSessionQuery {
   public List<SimpleCourseUserSessionCount> retrieveNumberSessionsAllUsers()
       throws SQLException {
     PreparedStatement preparedStatement = builder.retrieveNumberSessionsAllUsers();
-    executor = new CourseSessionQueryExecutor (preparedStatement);
+    executor = new CourseSessionQueryExecutor (preparedStatement, false);
 
     return executor.retrieveNumberSessionsAllUsers (courseId);
   }
@@ -56,7 +56,7 @@ public class CourseSessionQuery {
   public List<SimpleCourseUserSessionCount> retrieveStatsNumberSessionsAllUsers()
       throws SQLException {
     PreparedStatement preparedStatement = builder.retrieveStatsNumberSessionsAllUsers();
-    executor = new CourseSessionQueryExecutor (preparedStatement);
+    executor = new CourseSessionQueryExecutor (preparedStatement, true);
 
     return executor.retrieveNumberSessionsAllUsers (courseId);
   }
@@ -67,7 +67,7 @@ public class CourseSessionQuery {
   public CourseUserSessionsCollection retrieveSessionsForUser (Id userId)
       throws SQLException, SessionException {
     PreparedStatement preparedStatement = builder.retrieveSessionsForUser (userId);
-    executor = new CourseSessionQueryExecutor (preparedStatement);
+    executor = new CourseSessionQueryExecutor (preparedStatement, false);
 
     return executor.retrieveSessionsForUser();
   }
@@ -77,8 +77,10 @@ public class CourseSessionQuery {
    */
   public CourseUserSessionsCollection retrieveStatsSessionsForUser (Id userId)
       throws SQLException, SessionException {
-    PreparedStatement preparedStatement = builder.retrieveStatsSessionsForUser (userId);
-    executor = new CourseSessionQueryExecutor (preparedStatement);
+    PreparedStatement preparedStatement =
+      builder.retrieveStatsSessionsForUser (userId);
+
+    executor = new CourseSessionQueryExecutor (preparedStatement, true);
 
     return executor.retrieveSessionsForUser();
   }
@@ -92,7 +94,7 @@ public class CourseSessionQuery {
     PreparedStatement preparedStatement =
       builder.retrieveSessionForUser (userId, sessionId);
 
-    executor = new CourseSessionQueryExecutor (preparedStatement);
+    executor = new CourseSessionQueryExecutor (preparedStatement, false);
 
     return executor.retrieveSessionForUser (courseId, userId, sessionId);
   }
@@ -104,9 +106,9 @@ public class CourseSessionQuery {
     Id courseId, Id userId, String sessionId
   ) throws SQLException, SessionException {
     PreparedStatement preparedStatement =
-        builder.retrieveStatsSessionForUser (userId, sessionId);
+      builder.retrieveStatsSessionForUser (userId, sessionId);
 
-    executor = new CourseSessionQueryExecutor (preparedStatement);
+    executor = new CourseSessionQueryExecutor (preparedStatement, true);
 
     return executor.retrieveSessionForUser (courseId, userId, sessionId);
   }

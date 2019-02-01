@@ -3,6 +3,7 @@
   blackboard.data.user.User,
   blackboard.persist.user.UserDbLoader,
   blackboard.persist.Id,
+  _auxilliary.ActivityEventComparator,
   _context.PrivateEyeUserContext,
   _persistence.PersistenceManager,
   _persistence.query.UserSessionQuery,
@@ -26,6 +27,7 @@
   SimpleUser user = null;
 
   SimpleDateFormat dateFormatter = new SimpleDateFormat ("yyyy/MM/dd hh:mm:ss a z");
+  ActivityEventComparator comparator = new ActivityEventComparator();
   List<ActivityEvent> sessionEvents = new ArrayList<>();
 
   try {
@@ -58,7 +60,11 @@
       objectVar="sessionEvent"
       recordCount="<%= sessionEvents.size() %>"
       initialSortCol="timestamp">
-    <bbNG:listElement name="timestamp" label="Date &amp; Timestamp" isRowHeader="true">
+    <bbNG:listElement
+        name="timestamp"
+        label="Date &amp; Timestamp"
+        isRowHeader="true"
+        comparator="<%= comparator %>">
       <%= dateFormatter.format (sessionEvent.getTimestamp()) %>
     </bbNG:listElement>
 

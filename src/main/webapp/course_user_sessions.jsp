@@ -6,6 +6,7 @@
   blackboard.persist.user.UserDbLoader,
   blackboard.persist.Id,
   blackboard.platform.plugin.PlugInUtil,
+  _auxilliary.SingleUserSessionComparator,
   _context.PrivateEyeCourseContext,
   _persistence.PersistenceManager,
   _persistence.query.CourseSessionQuery,
@@ -29,6 +30,7 @@
   SimpleUser user = null;
 
   SimpleDateFormat dateFormatter = new SimpleDateFormat ("yyyy/MM/dd hh:mm:ss a z");
+  SingleUserSessionComparator comparator = new SingleUserSessionComparator();
   Map<String, SingleCourseUserSession> sessionsMap = new HashMap<>();
 
   try {
@@ -59,7 +61,8 @@
       className="session.SingleCourseUserSession"
       objectVar="courseUserSession"
       recordCount="<%= sessionsMap.values().size() %>"
-      initialSortCol="timestamp">
+      initialSortCol="timestamp"
+      initialSortBy="DESCENDING">
     <%
       String sessionId = courseUserSession.getSessionId();
     %>
@@ -70,13 +73,26 @@
       </a>
     </bbNG:listElement>
 
-    <bbNG:listElement name="timestamp" label="Date &amp; Timestamp">
+    <bbNG:listElement
+        name="timestamp"
+        label="Date &amp; Timestamp"
+        comparator="<%= comparator %>">
       <%=
         dateFormatter.format (
           courseUserSession.getSessionActivities().get (
             courseUserSession.getSessionSize() - 1
           ).getTimestamp()
         )
+      %>
+    </bbNG:listElement>
+
+    <bbNG:listElement name="stats" label="Contains Antiquated Tracking">
+      <%
+        if (courseUserSession.containsStatsTracking()) {
+          %>Yes<%
+        } else {
+          %>No<%
+        }
       %>
     </bbNG:listElement>
   </bbNG:pagedList>
